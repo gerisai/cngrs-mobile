@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { Image } from 'expo-image';
-import { View, Text, StyleSheet, ScrollView, TextInput } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
 import { logoWhite } from '../constants/images';
 import SignFormField from "../components/SignFormField.jsx";
+import CustomButton from "../components/CustomButtom.jsx";
 import '../global.css';
 
 export default function SignIn() {
@@ -20,24 +21,23 @@ export default function SignIn() {
         style={styles.background}
     >
     <SafeAreaView className="h-full">
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="w-full flex items-center h-full py-5">
-          <View className="flex-row gap-2 items-center mt-10">
+        <KeyboardAvoidingView
+            className="w-full h-dvh flex items-center justify-end px-6 gap-14 pt-20"
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={10}
+        >
+          <View className="flex-row gap-2 items-center">
             <Image
                 style={{ width: 50, height: 50 }}
                 source={logoWhite}
                 onError={({error}) => console.log(error)}
             />
-            <Text className="text-3xl text-white font-rbold text-center">
+            <Text className="text-2xl text-white font-rbold text-center">
               Congreso 2024
             </Text>
           </View>
-          <View className="w-full flex h-full px-6 mt-20">
-            <Text className="text-4xl font-rbold text-white text-center">
+          <View className="w-full flex">
+            <Text className="text-4xl font-rbold text-white text-center pb-2">
               Iniciar Sesión
             </Text>
             <SignFormField
@@ -54,10 +54,9 @@ export default function SignIn() {
               placeholder="Contraseña"
               handleChangeText={(e) => setForm({ ...form, password: e })}
             />
-          
+            <CustomButton title={'Continuar'} isLoading={true}/>
           </View>
-      </View>
-      </ScrollView>
+        </KeyboardAvoidingView>
       <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
     </LinearGradient>
