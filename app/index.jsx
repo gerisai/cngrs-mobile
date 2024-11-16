@@ -54,7 +54,7 @@ export default function SignIn() {
               placeholder="Contraseña"
               handleChangeText={(e) => setForm({ ...form, password: e })}
             />
-            <CustomButton title={'Continuar'} isLoading={true}/>
+            <CustomButton title={'Continuar'} isLoading={false}/>
           </View>
         </KeyboardAvoidingView>
       <StatusBar backgroundColor="#161622" style="light" />

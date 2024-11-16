@@ -1,18 +1,12 @@
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 
-export default function CustomButton ({
-  title,
-  handlePress,
-  isLoading,
-})
-{
+export default function CustomButton ({ title,handlePress,isLoading}) {
   return (
     <TouchableOpacity
       onPress={handlePress}
-      activeOpacity={0.7}
-      className={`mt-5 border-2 border-white rounded-xl min-h-[52px] flex flex-row justify-center items-center ${
-        isLoading ? "opacity-50" : ""
+      className={`mt-5 rounded-xl min-h-[52px] flex flex-row justify-center items-center ${
+        isLoading ? "bg-secondary" : "border-2 border-white"
       }`}
       disabled={isLoading}
     >
