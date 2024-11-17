@@ -1,26 +1,52 @@
 import { Tabs } from "expo-router";
-import { Pressable } from 'react-native';
+import { Pressable, TouchableOpacity, Text } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const tabs = [
-    { name: 'index', title: 'Inicio', icon: 'home' },
+    { name: 'home', title: 'Inicio', icon: 'home' },
     { name: 'scan', title: 'Scan', icon: 'qr-code-scanner' },
     { name: 'asistants', title: 'Registro', icon: 'checklist' },
     { name: 'users', title: 'Usuarios', icon: 'groups' },
 ]
 
-export default function RootLayout() {
+export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#0396B7',
-        headerShown: false,
+        headerShown: true,
         tabBarStyle: {
           backgroundColor: '#0000',
-        }
+          boxShadow: "0px -3px 4px 0px rgba(0, 0, 0, 0.15)"
+        },
+        headerBackground: (props) => (
+          <LinearGradient
+            colors={['#00BFDD','#5CC3B5']}
+            style={{ flex: 1 }}
+            start={[0,0]}
+            end={[1,1]}
+          />
+        ),
+        headerTitle: (props) => (
+          <TouchableOpacity
+            className="flex flex-row items-center justify-center gap-2"
+          >
+            <MaterialIcons name="account-circle" color="white" size={32}/>
+            <Text className="text-white font-rmedium text-xl">
+              Gerardo Diaz
+            </Text>
+          </TouchableOpacity>
+          
+        ),
+        headerBackgroundContainerStyle: {
+          boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.15)"
+        },
+        headerTitleAlign: "left"
       }}
     >
     {
+      
         tabs.map((t,i) => (
             <Tabs.Screen key={i} name={t.name} options={{ 
               title: t.title,

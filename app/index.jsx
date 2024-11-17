@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { router } from "expo-router";
 import { Image } from 'expo-image';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -54,7 +55,10 @@ export default function SignIn() {
               placeholder="Contraseña"
               handleChangeText={(e) => setForm({ ...form, password: e })}
             />
-            <CustomButton title={'Continuar'} isLoading={false}/>
+            <CustomButton 
+              title={'Continuar'}
+              handlePress={() => router.push("/home")}
+              isLoading={false}/>
           </View>
         </KeyboardAvoidingView>
       <StatusBar backgroundColor="#161622" style="light" />
