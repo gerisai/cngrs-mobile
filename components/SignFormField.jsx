@@ -18,7 +18,7 @@ export default function SignFormField({
   return (
     <View className="mt-5">
       <TextInput
-        className="font-rbold"
+        className="font-rlight"
         style={{
           backgroundColor: 'white',
           borderRadius: 5

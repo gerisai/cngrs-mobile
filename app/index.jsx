@@ -1,20 +1,41 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { router } from "expo-router";
+import { router, Redirect } from "expo-router";
 import { Image } from 'expo-image';
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
 import { logoWhite } from '../constants/images';
 import SignFormField from "../components/SignFormField.jsx";
 import CustomButton from "../components/CustomButtom.jsx";
+import { useUser } from '../lib/context/user.jsx';
 import '../global.css';
 
 export default function SignIn() {
+  const { user, login } = useUser();
+  if (user) return <Redirect href="/home" />;
+  
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
+
+  const submit = async () => {
+    if (form.username === "" || form.password === "") {
+      Alert.alert("Error", "Por favor llena todos los campos");
+      return
+    }
+
+    try {
+      await login(form);
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <LinearGradient
@@ -57,8 +78,9 @@ export default function SignIn() {
             />
             <CustomButton 
               title={'Continuar'}
-              handlePress={() => router.push("/home")}
-              isLoading={false}/>
+              handlePress={submit}
+              isLoading={isSubmitting}
+            />
           </View>
         </KeyboardAvoidingView>
       <StatusBar backgroundColor="#161622" style="light" />

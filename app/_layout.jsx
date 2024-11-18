@@ -1,6 +1,7 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { UserProvider } from '../lib/context/user';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,9 +38,11 @@ export default function RootLayout() {
   }
 
   return (
+  <UserProvider>
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
+  </UserProvider>
   )
 }
