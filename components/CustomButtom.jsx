@@ -1,16 +1,18 @@
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-
-export default function CustomButton ({ title,handlePress,isLoading}) {
+export default function CustomButton ({ title, handlePress, isLoading, icon, containerStyles, iconColor, textStyles, }) {
   return (
     <TouchableOpacity
       onPress={handlePress}
-      className={`mt-5 rounded-xl min-h-[52px] flex flex-row justify-center items-center ${
-        isLoading ? "bg-secondary" : "border-2 border-white"
-      }`}
+      className={`mt-5 p-4 rounded-xl min-h-[52px] flex flex-row justify-center items-center 
+      ${ isLoading ? "bg-secondary" : "" }
+      ${containerStyles}
+      `}
       disabled={isLoading}
     >
-      <Text className={`text-white font-rmedium text-xl`}>
+      { icon ? <MaterialIcons className="mr-2" name={icon} color={iconColor} size={24}/> : null }
+      <Text className={`font-rmedium text-xl ${textStyles}`}>
         {isLoading ? "" : title}
       </Text>
 

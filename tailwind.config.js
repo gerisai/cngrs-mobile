@@ -7,8 +7,13 @@ module.exports = {
     extend: {
       colors: {
         primary: "#00BFDD",
-        secondary:  "#126078",
-        gray: "#9E9E9E",
+        secondary: {
+          DEFAULT: "#126078",
+          100: "#0396B7"
+        },
+        gray: {
+          DEFAULT: "#F4F4F4"
+        }
       },
       fontFamily: {
         rthin: ["Roboto-Thin", "sans-serif"],

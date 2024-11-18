@@ -78,6 +78,8 @@ export default function SignIn() {
             />
             <CustomButton 
               title={'Continuar'}
+              containerStyles="border-2 border-white"
+              textStyles="text-white"
               handlePress={submit}
               isLoading={isSubmitting}
             />
