@@ -23,6 +23,10 @@ export default function User() {
   });
   const { updateUser, uploadAvatar } = useUsers();
 
+  const roles = [
+    { id: '1', title: "Administrador", value: "admin"},
+    {id: '2', title: "Operador", value: "operator"}
+  ];
   const canEdit = canRoleDo(user.role,'UPDATE', 'user');
 
   const chooseAvatar = async () => {
@@ -79,7 +83,7 @@ export default function User() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={10}
     >
-      <ScrollView>
+      <ScrollView directionalLockEnabled={true}>
       <View className="w-full h-full flex p-8 bg-gray">
         <View className="flex gap-2">
           <Text className="text-4xl font-rbold mb-2">
@@ -106,7 +110,7 @@ export default function User() {
           <Select
             title="Rol"
             value={LangMappings.user.roles[form.role || user.role]}
-            data={[{ id: '1', title: "Administrador", value: "admin"}, {id: '2', title: "Operador", value: "operator"}]}
+            data={roles}
             onSelect={(e) => setForm({ ...form, role: e })}
             disabled={!canEdit}
           />
