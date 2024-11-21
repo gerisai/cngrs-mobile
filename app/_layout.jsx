@@ -1,8 +1,10 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import Toast from 'react-native-toast-message';
 import { UserProvider } from '../lib/context/user';
-
+import { toastConfig } from '../util/toast';
+ 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -43,6 +45,7 @@ export default function RootLayout() {
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
+    <Toast config={toastConfig}/>
   </UserProvider>
   )
 }

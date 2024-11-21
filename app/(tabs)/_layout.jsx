@@ -1,16 +1,20 @@
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { Pressable, TouchableOpacity, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Avatar } from "@react-native-material/core";
+import { useUser } from '../../lib/context/user';
 
 const tabs = [
-    { name: 'home', title: 'Inicio', icon: 'home' },
+    { name: 'home', title: 'Inicio', icon: 'home'},
     { name: 'scan', title: 'Scan', icon: 'qr-code-scanner' },
     { name: 'asistants', title: 'Registro', icon: 'checklist' },
-    { name: 'users', title: 'Usuarios', icon: 'groups' },
+    { name: 'users', title: 'Usuarios', icon: 'groups' }
 ]
 
 export default function TabsLayout() {
+  const { user } = useUser();
+  
   return (
     <Tabs
       screenOptions={{
@@ -30,11 +34,15 @@ export default function TabsLayout() {
         ),
         headerTitle: (props) => (
           <TouchableOpacity
-            className="flex flex-row items-center justify-center gap-2"
+            className="flex flex-row items-center justify-center gap-2 pb-2"
+            onPress={() => router.push("/user")}
           >
-            <MaterialIcons name="account-circle" color="white" size={32}/>
+            { user.avatar ?
+             <Avatar image={{ uri: user.avatar }} size={32}/> :
+             <MaterialIcons name="account-circle" color="white" size={32}/>
+            }
             <Text className="text-white font-rmedium text-xl">
-              Gerardo Diaz
+              {user.name.split(" ")[0]}
             </Text>
           </TouchableOpacity>
           
@@ -46,30 +54,35 @@ export default function TabsLayout() {
       }}
     >
     {
-      
-        tabs.map((t,i) => (
-            <Tabs.Screen key={i} name={t.name} options={{ 
-              title: t.title,
-              tabBarIcon: ({ color }) => (
-                  <MaterialIcons name={t.icon} color={color} size={24}/>
-              ),
-              tabBarButton: ({children, ...props}) => {
-                return (
-                <Pressable
-                  {...props}
-                  style={
-                    props.accessibilityState.selected
-                      ? [props.style, { borderTopColor: '#0396B7', borderTopWidth: 5 }]
-                      : [props.style, { borderTopColor: '#8E8E8F', borderTopWidth: 5 }]
-                  }
-                >
-                  {children}
-                </Pressable>
-              )}
-              }}
-            />
-        ))
+      tabs.map((t,i) => (
+        <Tabs.Screen key={i} name={t.name} options={{ 
+          title: t.title,
+          tabBarIcon: ({ color }) => (
+              <MaterialIcons name={t.icon} color={color} size={24}/>
+          ),
+          tabBarButton: ({children, ...props}) => {
+            return (
+            <Pressable
+              {...props}
+              style={
+                props.accessibilityState.selected
+                  ? [props.style, { borderTopColor: '#0396B7', borderTopWidth: 5 }]
+                  : [props.style, { borderTopColor: '#8E8E8F', borderTopWidth: 5 }]
+              }
+            >
+              {children}
+            </Pressable>
+          )}
+          }}
+        />
+      ))
     }
+      <Tabs.Screen
+        name="user"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   )
 }

@@ -28,6 +28,7 @@ export default function SignIn() {
     }
 
     try {
+      setSubmitting(true);
       await login(form);
       router.replace("/home");
     } catch (error) {
