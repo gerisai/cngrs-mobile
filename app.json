@@ -4,24 +4,34 @@
     "slug": "cngrs",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
+    "icon": "./assets/images/logo.svg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.cngrs"
+      "bundleIdentifier": "com.anonymous.cngrs",
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) necesita permisos para tu cámara"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.anonymous.cngrs"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/logo.png"
+      "favicon": "./assets/images/logo.svg"
     },
     "plugins": [
       "expo-router",
@@ -37,7 +47,13 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to choose an avatar for profile."
+          "photosPermission": "La app accede a tus fotos solo para seleccionar un avatar"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permite a $(PRODUCT_NAME) acceder a la cámara"
         }
       ]
     ],

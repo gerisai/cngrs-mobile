@@ -5,7 +5,7 @@ export default function CustomButton ({ title, handlePress, isLoading, icon, con
   return (
     <TouchableOpacity
       onPress={handlePress}
-      className={`mt-5 p-4 rounded-xl min-h-[52px] flex flex-row justify-center items-center 
+      className={`rounded-xl flex flex-row justify-center items-center 
       ${ isLoading ? "bg-secondary" : "" }
       ${containerStyles}
       `}

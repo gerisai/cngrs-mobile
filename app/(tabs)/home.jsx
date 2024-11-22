@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 import { Image } from 'expo-image';
+import { router } from "expo-router";
 import { logo } from '../../constants/images';
 import Stats from '../../components/Stats';
 import CustomButton from "../../components/CustomButtom";
@@ -25,15 +26,15 @@ export default function Home() {
         title="Registrar Asistente"
         icon="qr-code-scanner"
         iconColor="white"
-        containerStyles="bg-primary"
+        containerStyles="my-2 p-6 bg-primary"
         textStyles="text-white"
-        handlePress={() => console.log('register')}
+        handlePress={() => router.push('/scanner')}
       />
       <CustomButton
         title="Registro Manual"
         icon="edit"
         iconColor="#0396B7"
-        containerStyles="border-2 border-secondary-100"
+        containerStyles="my-2 p-3 border-2 border-secondary-100"
         textStyles="text-secondary-100"
         handlePress={() => console.log('register')}
       />

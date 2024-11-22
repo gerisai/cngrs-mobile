@@ -5,14 +5,14 @@ export const toastConfig = {
     <BaseToast
       {...props}
       style={{ backgroundColor: '#2D9F92', borderRadius: 15, width: "90%"}}
-      text1Style={{ color: "white" }}
+      text1Style={{ color: "white", fontSize: 16 }}
     />
   ),
   error: (props) => (
     <BaseToast
       {...props}
       style={{ backgroundColor: '#DB1F22', borderRadius: 15, width: "90%"}}
-      text1Style={{ color: "white" }}
+      text1Style={{ color: "white", fontSize: 16 }}
     />
   )
 };

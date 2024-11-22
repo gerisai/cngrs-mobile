@@ -1,0 +1,1 @@
+export const url = /^(https:\/\/cngrs\.jidi\.com\.mx\/person\/)[a-z]+$/

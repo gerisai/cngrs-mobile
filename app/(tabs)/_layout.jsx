@@ -77,12 +77,8 @@ export default function TabsLayout() {
         />
       ))
     }
-      <Tabs.Screen
-        name="user"
-        options={{
-          href: null,
-        }}
-      />
+      <Tabs.Screen name="user" options={{href: null}}/>
+      <Tabs.Screen name="person/[personId]" options={{href: null}}/>
     </Tabs>
   )
 }

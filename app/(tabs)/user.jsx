@@ -125,7 +125,7 @@ export default function User() {
           { canEdit &&
             <CustomButton 
               title={'Guardar'}
-              containerStyles="bg-primary"
+              containerStyles="my-2 p-3 bg-primary"
               iconColor="#0396B7"
               textStyles="text-white"
               handlePress={submit}
@@ -134,7 +134,7 @@ export default function User() {
           }
             <CustomButton 
               title={'Cerrar Sesión'}
-              containerStyles="border-2 border-red-500"
+              containerStyles="my-2 p-3 border-2 border-red-500"
               textStyles="text-red-500"
               handlePress={onLogout}
             />

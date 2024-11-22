@@ -1,9 +1,13 @@
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import Toast from 'react-native-toast-message';
 import { UserProvider } from '../lib/context/user';
 import { toastConfig } from '../util/toast';
+
+const queryClient = new QueryClient();
  
 SplashScreen.preventAutoHideAsync();
 
@@ -40,12 +44,15 @@ export default function RootLayout() {
   }
 
   return (
+  <QueryClientProvider client={ queryClient }>
   <UserProvider>
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
     <Toast config={toastConfig}/>
+    <StatusBar backgroundColor="#161622" style="light" />
   </UserProvider>
+  </QueryClientProvider>
   )
 }

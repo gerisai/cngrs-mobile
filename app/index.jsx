@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { router, Redirect } from "expo-router";
 import { Image } from 'expo-image';
@@ -79,14 +78,13 @@ export default function SignIn() {
             />
             <CustomButton 
               title={'Continuar'}
-              containerStyles="border-2 border-white"
+              containerStyles="mt-4 p-4 border-2 border-white"
               textStyles="text-white"
               handlePress={submit}
               isLoading={isSubmitting}
             />
           </View>
         </KeyboardAvoidingView>
-      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
     </LinearGradient>
   );
