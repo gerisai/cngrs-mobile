@@ -20,7 +20,7 @@ export default function FormField({
       <TextInput
         editable={!disabled}
         className={`h-12 bg-white border border-slate-400 rounded-lg 
-        font-rmedium text-black p-2 focus:border-primary ${disabled ? "opacity-50" : ""}`}
+        font-rmedium text-black p-2 pl-3 focus:border-primary ${disabled ? "opacity-50" : ""}`}
         placeholder={placeholder}
         value={value}
         secureTextEntry={secure && !showPassword}
