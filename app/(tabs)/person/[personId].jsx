@@ -3,9 +3,23 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { fields } from '../../../constants/constants';
 import CustomButton from "../../../components/CustomButtom";
 import InfoField from "../../../components/InfoField";
 import usePeople from "../../../hooks/usePeople";
+
+const types = {
+  light: {
+    iconColor: "#5CC3B5",
+    labelColor: "text-green-400"
+  },
+  dark: {
+    iconColor: "#218076",
+    labelColor: "text-green-600"
+  }
+}
+
+const displayFields = ["zone", "branch", "city", "room"];
 
 export default function Assistant() {
   const queryClient = useQueryClient();
@@ -42,13 +56,6 @@ export default function Assistant() {
     router.replace("/home");
   }
 
-  const data = [
-    { label: "Zona", value: person.zone, icon: "location-on"},
-    { label: "Localidad", value: person.branch, icon: "synagogue"},
-    { label: "Ciudad", value: person.city, icon: "flag"},
-    { label: "Habitación", value: person.room, icon: "bed"},
-  ]
-
   return (
     <View
       className="w-full h-full flex items-center pt-4 bg-gray"
@@ -59,15 +66,20 @@ export default function Assistant() {
             {person.name}
         </Text>
         <View className="my-6 mx-2 flex gap-3">
-          { data.map((d,i) => (
-            <InfoField
+          { displayFields.map((f,i) => {
+            const style = types[i % 2 ? "light" : "dark"];
+            const field = fields[f]
+            return (<InfoField
               key={i}
-              icon={d.icon}
-              type={i % 2 ? "light" : "dark"}
-              label={d.label}
-              value={d.value}
-            />
-            ))
+              icon={field.icon}
+              iconColor={style.iconColor}
+              iconSize={32}
+              textSize="text-xl"
+              labelColor={style.labelColor}
+              label={field.label}
+              value={person[f]}
+            />)
+            })
           }
         </View>
         { !person.accessed ?
