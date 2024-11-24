@@ -9,14 +9,17 @@ export default function SignFormField({
   name,
   value,
   icon,
+  iconColor,
+  iconSize,
   placeholder,
   handleChangeText,
-}) 
+  containerStyles
+})
 {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <View className="mt-5">
+    <View className={`${containerStyles}`}>
       <TextInput
         className="font-rlight"
         style={{
@@ -32,7 +35,7 @@ export default function SignFormField({
         value={value}
         onChangeText={handleChangeText}
         secureTextEntry={name === "password" && !showPassword}
-        leading={props => <MaterialIcons name={icon} color="#9E9E9E" size={24} {...props} />}
+        leading={props => <MaterialIcons name={icon} color={iconColor} size={iconSize}/>}
         trailing={props =>
             name === "password" && 
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>

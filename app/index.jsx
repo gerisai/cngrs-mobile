@@ -66,6 +66,9 @@ export default function SignIn() {
               name="username"
               value={form.username}
               icon="person"
+              iconColor="#9E9E9E"
+              iconSize={24}
+              containerStyles="mt-5"
               placeholder="Usuario"
               handleChangeText={(e) => setForm({ ...form, username: e })}
             />
@@ -73,6 +76,9 @@ export default function SignIn() {
               name="password"
               value={form.password}
               icon="vpn-key"
+              iconColor="#9E9E9E"
+              iconSize={24}
+              containerStyles="mt-5"
               placeholder="Contraseña"
               handleChangeText={(e) => setForm({ ...form, password: e })}
             />

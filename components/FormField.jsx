@@ -33,6 +33,6 @@ export default function FormField({
         <MaterialCommunityIcons name={!showPassword ? "eye-off" : "eye" } color="#000" size={20}/>
       </TouchableOpacity>
       }
-  </View>
+    </View>
   );
 };

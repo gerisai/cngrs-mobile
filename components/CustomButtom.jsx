@@ -1,7 +1,7 @@
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function CustomButton ({ title, handlePress, isLoading, icon, containerStyles, iconColor, textStyles, }) {
+export default function CustomButton ({ title, handlePress, isLoading, icon, containerStyles, iconColor, iconSize = 24, textStyles, }) {
   return (
     <TouchableOpacity
       onPress={handlePress}
@@ -11,11 +11,12 @@ export default function CustomButton ({ title, handlePress, isLoading, icon, con
       `}
       disabled={isLoading}
     >
-      { icon ? <MaterialIcons className="mr-2" name={icon} color={iconColor} size={24}/> : null }
-      <Text className={`font-rmedium text-xl ${textStyles}`}>
+      { icon ? <MaterialIcons name={icon} color={iconColor} size={iconSize}/> : null }
+      { title &&
+      <Text className={`ml-2 font-rmedium text-xl ${textStyles}`}>
         {isLoading ? "" : title}
       </Text>
-
+      }
       {isLoading && (
         <ActivityIndicator
           animating={isLoading}
