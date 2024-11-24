@@ -32,9 +32,11 @@ export default function usePeople() {
     }
   };
 
-  const readPeople = async function () {
+  const readPeople = async function (query) {
     try {
-      const res = await api.get('/people');
+      const res = await api.get('/people', { 
+        params: query
+      });
       const people = res.data.people;
       return people;
     } catch(err) {
