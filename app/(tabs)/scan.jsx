@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import CustomButton from "../../components/CustomButtom";
+import CustomButton from "@/components/CustomButtom";
 import { useEffect } from 'react';
 import { useCameraPermissions } from 'expo-camera';
 import { Redirect } from "expo-router";

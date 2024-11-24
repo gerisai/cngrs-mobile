@@ -4,13 +4,13 @@ import * as ImagePicker from 'expo-image-picker';
 import { Avatar } from "@react-native-material/core";
 import Toast from 'react-native-toast-message';
 import { router} from 'expo-router';
-import CustomButton from "../../components/CustomButtom";
-import FormField from "../../components/FormField";
-import Select from '../../components/Select';
-import { useUser } from '../../lib/context/user';
-import useUsers from '../../hooks/useUsers';
-import { LangMappings } from "../../util/i8n";
-import canRoleDo from '../../util/roleValidation';
+import CustomButton from "@/components/CustomButtom";
+import FormField from "@/components/FormField";
+import Select from '@/components/Select';
+import { useUser } from '@/lib/context/user';
+import useUsers from '@/hooks/useUsers';
+import { LangMappings } from "@/util/i8n";
+import canRoleDo from '@/util/roleValidation';
 
 export default function User() {
   const [isSubmitting, setSubmitting] = useState(false);

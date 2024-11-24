@@ -2,10 +2,10 @@ import { View, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
-import Card from '../../components/Card';
-import CustomSearchBar from '../../components/CustomSearchBar';
+import Card from '@/components/Card';
+import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
-import usePeople from '../../hooks/usePeople';
+import usePeople from '@/hooks/usePeople';
 
 export default function Asistants() {
   const { readPeople } = usePeople();

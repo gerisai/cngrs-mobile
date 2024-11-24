@@ -1,9 +1,9 @@
 import { CameraView } from "expo-camera";
 import { Stack, router } from "expo-router";
-import { SafeAreaView, StyleSheet, Pressable, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, Pressable } from "react-native";
 import Toast from 'react-native-toast-message';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { url } from '../../constants/constants';
+import { url } from '@/constants/constants';
 
 export default function Scanner() {
 

@@ -4,11 +4,11 @@ import { Image } from 'expo-image';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
-import { logoWhite } from '../constants/images';
-import SignFormField from "../components/SignFormField.jsx";
-import CustomButton from "../components/CustomButtom.jsx";
-import { useUser } from '../lib/context/user.jsx';
-import '../global.css';
+import { logoWhite } from '@/constants/images';
+import SignFormField from "@/components/SignFormField.jsx";
+import CustomButton from "@/components/CustomButtom.jsx";
+import { useUser } from '@/lib/context/user.jsx';
+import '@/global.css';
 
 export default function SignIn() {
   const { user, login } = useUser();

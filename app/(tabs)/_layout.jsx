@@ -3,7 +3,7 @@ import { Pressable, TouchableOpacity, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Avatar } from "@react-native-material/core";
-import { useUser } from '../../lib/context/user';
+import { useUser } from '@/lib/context/user';
 
 const tabs = [
     { name: 'home', title: 'Inicio', icon: 'home'},
@@ -79,6 +79,7 @@ export default function TabsLayout() {
     }
       <Tabs.Screen name="user" options={{href: null}}/>
       <Tabs.Screen name="person/register/[personId]" options={{href: null}}/>
+      <Tabs.Screen name="person/edit/[personId]" options={{href: null}}/>
     </Tabs>
   )
 }

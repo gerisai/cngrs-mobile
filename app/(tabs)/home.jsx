@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import { Image } from 'expo-image';
 import { router } from "expo-router";
-import { logo } from '../../constants/images';
-import Stats from '../../components/Stats';
-import CustomButton from "../../components/CustomButtom";
+import { logo } from '@/constants/images';
+import Stats from '@/components/Stats';
+import CustomButton from "@/components/CustomButtom";
 
 export default function Home() {
   return (

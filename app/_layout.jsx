@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import Toast from 'react-native-toast-message';
-import { UserProvider } from '../lib/context/user';
-import { toastConfig } from '../util/toast';
+import { UserProvider } from '@/lib/context/user';
+import { toastConfig } from '@/util/toast';
 
 const queryClient = new QueryClient();
  
