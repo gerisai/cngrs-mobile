@@ -41,7 +41,7 @@ export default function TabsLayout() {
              <Avatar image={{ uri: user.avatar }} size={32}/> :
              <MaterialIcons name="account-circle" color="white" size={32}/>
             }
-            <Text className="text-white font-rmedium text-xl">
+            <Text className="text-white font-rmedium text-2xl">
               {user.name.split(" ")[0]}
             </Text>
           </TouchableOpacity>
