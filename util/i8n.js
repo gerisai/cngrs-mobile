@@ -4,5 +4,11 @@ export const LangMappings = {
             operator: 'Operador',
             admin: 'Administrador'
         }
+    },
+    person: {
+        genders: {
+            male: 'Masculino',
+            female: 'Femenino'
+        }
     }
 }
