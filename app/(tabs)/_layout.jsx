@@ -18,7 +18,7 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#0396B7',
+        tabBarActiveTintColor: '#00BFDD',
         headerShown: true,
         tabBarStyle: {
           backgroundColor: '#0000',
@@ -66,7 +66,7 @@ export default function TabsLayout() {
               {...props}
               style={
                 props.accessibilityState.selected
-                  ? [props.style, { borderTopColor: '#0396B7', borderTopWidth: 5 }]
+                  ? [props.style, { borderTopColor: '#00BFDD', borderTopWidth: 5, color: "#fff" }]
                   : [props.style, { borderTopColor: '#8E8E8F', borderTopWidth: 5 }]
               }
             >

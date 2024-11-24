@@ -1,7 +1,6 @@
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import '../global.css';
 
 export default function FormField({
   name,

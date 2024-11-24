@@ -11,9 +11,9 @@ export default function CustomButton ({ title, handlePress, isLoading, icon, con
       `}
       disabled={isLoading}
     >
-      { icon ? <MaterialIcons name={icon} color={iconColor} size={iconSize}/> : null }
+      { icon ? <MaterialIcons className="mr-2" name={icon} color={iconColor} size={iconSize}/> : null }
       { title &&
-      <Text className={`ml-2 font-rmedium text-xl ${textStyles}`}>
+      <Text className={`font-rmedium text-xl ${textStyles}`}>
         {isLoading ? "" : title}
       </Text>
       }

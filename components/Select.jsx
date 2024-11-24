@@ -1,5 +1,4 @@
-import { TouchableOpacity, Text, Modal, View, FlatList, Pressable, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity, Text, Modal, View, FlatList, Pressable } from 'react-native';
 import { useState } from "react";
 
 

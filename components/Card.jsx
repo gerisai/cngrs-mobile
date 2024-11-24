@@ -1,7 +1,8 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { router } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import InfoFields from './InfoFields';
-import { fields } from '../constants/constants';
+import InfoFields from '@/components/InfoFields';
+import { fields } from '@/constants/constants';
 
 const typeStyles = {
     true: {
@@ -42,6 +43,7 @@ export default function Card({ data, type }) {
 
   return (
     <View className="flex gap-2 bg-white border-1 rounded-md p-4">
+      <TouchableOpacity onPress={() => router.push(`/person/edit/${data.personId}`)}>
       <View className="flex-row gap-2">
         {  type && <MaterialIcons name={style.icon} color={style.color} size={24}/> }
         <Text style={{ flex: 1 }} ellipsizeMode="tail" numberOfLines={1} className="text-lg font-rbold">{data.name}</Text>
@@ -58,6 +60,7 @@ export default function Card({ data, type }) {
           />)
         })}
       </View>
+      </TouchableOpacity>
     </View>
   )
 }

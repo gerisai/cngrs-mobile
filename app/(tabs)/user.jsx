@@ -11,6 +11,7 @@ import { useUser } from '@/lib/context/user';
 import useUsers from '@/hooks/useUsers';
 import { LangMappings } from "@/util/i8n";
 import canRoleDo from '@/util/roleValidation';
+import { roles } from '@/util/constants';
 
 export default function User() {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -23,10 +24,6 @@ export default function User() {
   });
   const { updateUser, uploadAvatar } = useUsers();
 
-  const roles = [
-    { id: '1', title: "Administrador", value: "admin"},
-    {id: '2', title: "Operador", value: "operator"}
-  ];
   const canEdit = canRoleDo(user.role,'UPDATE', 'user');
 
   const chooseAvatar = async () => {

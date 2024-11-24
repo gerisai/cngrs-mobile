@@ -3,7 +3,6 @@ import { View, TouchableOpacity } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { TextInput } from "@react-native-material/core";
-import '../global.css';
 
 export default function SignFormField({
   name,
