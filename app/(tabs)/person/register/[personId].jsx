@@ -3,10 +3,10 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { fields } from '../../../constants/constants';
-import CustomButton from "../../../components/CustomButtom";
-import InfoField from "../../../components/InfoField";
-import usePeople from "../../../hooks/usePeople";
+import { fields } from '../../../../constants/constants';
+import CustomButton from "../../../../components/CustomButtom";
+import InfoField from "../../../../components/InfoField";
+import usePeople from "../../../../hooks/usePeople";
 
 const types = {
   light: {
@@ -25,7 +25,7 @@ export default function Assistant() {
   const queryClient = useQueryClient();
   const { personId } = useLocalSearchParams();
   const { readPerson, updatePerson } = usePeople();
-  
+
   const { data: person , isPending, error } = useQuery({
     queryFn: () => readPerson(personId),
     queryKey: ['person'],
