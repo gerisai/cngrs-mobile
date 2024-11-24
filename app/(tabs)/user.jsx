@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Text, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Avatar } from "@react-native-material/core";
 import Toast from 'react-native-toast-message';
 import { router} from 'expo-router';
@@ -14,12 +15,12 @@ import canRoleDo from '@/util/roleValidation';
 import { roles } from '@/util/constants';
 
 export default function User() {
-  const [isSubmitting, setSubmitting] = useState(false);
   const { user, logout } = useUser();
+  const queryClient = useQueryClient();
   const [form,setForm] = useState({
     username: user.username,
-    name: null,
-    role: null,
+    name: user.name,
+    role: user.role,
     password: null
   });
   const { updateUser, uploadAvatar } = useUsers();
@@ -51,23 +52,21 @@ export default function User() {
     }
   }
 
-  const submit = async () => {
-    try {
-      setSubmitting(true);
-      await updateUser(form);
-      router.replace("/home");
-    } catch (err) {
-      Toast.show({ type: 'error', topOffset: 100, text1: err.message});
-    } finally {
-      setSubmitting(false);
-      setForm({
-        username: user.username,
-        name: null,
-        role: null,
-        password: null
-      });
+  const { mutateAsync: submit, isPending: updating } = useMutation({
+    mutationFn: async () => {
+      try {
+        await updateUser(form);
+        Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario actualizado'});
+        setForm({ ...form, password: null });
+        router.replace('/home')
+      } catch(err) {
+        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['users']);
     }
-  }
+  });
 
   const onLogout = async () => {
     await logout();
@@ -126,7 +125,7 @@ export default function User() {
               iconColor="#0396B7"
               textStyles="text-white"
               handlePress={submit}
-              isLoading={isSubmitting}
+              isLoading={updating}
             />
           }
             <CustomButton 
