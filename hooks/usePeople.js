@@ -63,12 +63,26 @@ export default function usePeople() {
     }
   };
 
+  const getPeopleStats = async function (query) {
+    try {
+      const res = await api.get("/people/stats", { 
+        params: query
+      });
+      const { count } = res.data;
+      return count;
+    } catch(err) {
+      const error = err.response ? err.response.data.message : err.message;
+      throw new Error(error);
+    }
+  };
+
   return {
   createPerson,
   bulkCreatePeople,
   readPerson,
   readPeople,
   updatePerson,
-  deletePerson
+  deletePerson,
+  getPeopleStats
   }
 }
