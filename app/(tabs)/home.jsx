@@ -1,7 +1,7 @@
-import { Text, View } from "react-native";
+import { Text, View, RefreshControl, ScrollView } from "react-native";
 import { Image } from 'expo-image';
 import { router } from "expo-router";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { logo } from '@/constants/images';
 import Stats from '@/components/Stats';
 import CustomButton from "@/components/CustomButtom";
@@ -9,6 +9,7 @@ import Loading from '@/components/Loading';
 import usePeople from "@/hooks/usePeople";
 
 export default function Home() {
+  const queryClient = useQueryClient();
   const { getPeopleStats } = usePeople();
 
   const { data: accessed , isPending: accessLoading , error: accessError } = useQuery({
@@ -31,7 +32,16 @@ export default function Home() {
     router.replace("/home");
   }
 
+  const onRefresh = () => {
+    queryClient.invalidateQueries(['accessed', 'total']);
+  }
+
   return (
+    <ScrollView directionalLockEnabled={true}
+      refreshControl={
+        <RefreshControl refreshing={accessLoading || totalPending} onRefresh={onRefresh} />
+      }
+    >
     <View
       className="w-full h-full flex items-center pt-8 bg-gray"
     >
@@ -65,5 +75,6 @@ export default function Home() {
       />
       </View>
     </View>
+    </ScrollView>
   );
 }

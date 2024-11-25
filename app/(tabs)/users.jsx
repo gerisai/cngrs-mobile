@@ -1,7 +1,7 @@
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
@@ -11,6 +11,7 @@ import useUsers from '@/hooks/useUsers';
 
 export default function Users() {
   const { readUsers } = useUsers();
+  const queryClient = useQueryClient();
   const [input, setInput] = useState(null);
   const [search, setSearch] = useState(null);
 
@@ -29,8 +30,18 @@ export default function Users() {
     router.replace("/home");
   }
 
+  const onRefresh = () => {
+    queryClient.invalidateQueries(['users', { search }]);
+  }
+
   return (
-    <ScrollView className="w-full h-full p-4" directionalLockEnabled={true}>
+    <ScrollView 
+      className="w-full h-full p-4"
+      directionalLockEnabled={true}
+      refreshControl={
+        <RefreshControl refreshing={isPending} onRefresh={onRefresh} />
+      }
+    >
       <View className="flex-row gap-6">
         <CustomSearchBar
           onChangeText={e => setInput(e)}
