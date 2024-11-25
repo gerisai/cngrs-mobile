@@ -3,6 +3,7 @@ import { router, Redirect } from "expo-router";
 import { Image } from 'expo-image';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useMutation } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { logoWhite } from '@/constants/images';
 import SignFormField from "@/components/SignFormField.jsx";
@@ -13,29 +14,26 @@ import '@/global.css';
 export default function SignIn() {
   const { user, login } = useUser();
   if (user) return <Redirect href="/home" />;
-  
-  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
 
-  const submit = async () => {
-    if (form.username === "" || form.password === "") {
-      Alert.alert("Error", "Por favor llena todos los campos");
-      return
+  // Login
+  const { mutateAsync: onLogin, isPending: loging } = useMutation({
+    mutationFn: async () => {
+      if (form.username === "" || form.password === "") {
+        Alert.alert("Error", "Por favor llena todos los campos");
+        return
+      }
+      try {
+        await login(form);
+        router.replace("/home");
+      } catch(err) {
+        Alert.alert("Error", err.message);
+      }
     }
-
-    try {
-      setSubmitting(true);
-      await login(form);
-      router.replace("/home");
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setSubmitting(false);
-    }
-  }
+  });
 
   return (
     <LinearGradient
@@ -86,8 +84,8 @@ export default function SignIn() {
               title={'Continuar'}
               containerStyles="mt-4 p-4 border-2 border-white"
               textStyles="text-white"
-              handlePress={submit}
-              isLoading={isSubmitting}
+              handlePress={onLogin}
+              isLoading={loging}
             />
           </View>
         </KeyboardAvoidingView>
