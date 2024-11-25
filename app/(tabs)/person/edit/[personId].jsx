@@ -1,5 +1,6 @@
 import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import { router, useLocalSearchParams } from 'expo-router';
+import Loading from '@/components/Loading';
 import Toast from 'react-native-toast-message';
 import { useQuery } from '@tanstack/react-query';
 import usePeople from "@/hooks/usePeople";
@@ -17,7 +18,7 @@ export default function Assistant() {
 
 
   if (isPending) {
-    return <View className="bg-gray w-full h-full"/>
+    return <Loading/>;
   }
 
   if (error) {

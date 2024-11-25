@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native';
 import CustomButton from "@/components/CustomButtom";
+import Loading from '@/components/Loading';
 import { useEffect } from 'react';
 import { useCameraPermissions } from 'expo-camera';
 import { Redirect } from "expo-router";
@@ -14,7 +15,7 @@ export default function AboutScreen() {
   },[])
   
   if (!permission) {
-    return <View />;
+    return <Loading/>;
   }
 
   if (!permission.granted) {

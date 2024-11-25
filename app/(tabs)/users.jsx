@@ -6,6 +6,7 @@ import Toast from 'react-native-toast-message';
 import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
+import Loading from '@/components/Loading';
 import useUsers from '@/hooks/useUsers';
 
 export default function Users() {
@@ -20,7 +21,7 @@ export default function Users() {
   });
 
   if (isPending) {
-    return <View className="bg-gray w-full h-full"><Text>Cargando</Text></View>
+    return <Loading/>;
   }
 
   if (error) {

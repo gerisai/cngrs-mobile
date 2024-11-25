@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import useUsers from '@/hooks/useUsers';
 import EditUser from '@/components/EditUser';
+import Loading from '@/components/Loading';
 
 export default function User() {
   const { username } = useLocalSearchParams();
@@ -16,7 +17,7 @@ export default function User() {
   });
 
   if (isPending) {
-    return <View className="bg-gray w-full h-full"/>
+    return <Loading/>;
   }
 
   if (error) {

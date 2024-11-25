@@ -6,6 +6,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { fields } from '@/constants/constants';
 import CustomButton from "@/components/CustomButtom";
 import InfoField from "@/components/InfoField";
+import Loading from '@/components/Loading';
 import usePeople from "@/hooks/usePeople";
 
 const types = {
@@ -48,7 +49,7 @@ export default function Assistant() {
   });
 
   if (isPending) {
-    return <View className="bg-gray w-full h-full"/>
+    return <Loading/>;
   }
 
   if (error) {
