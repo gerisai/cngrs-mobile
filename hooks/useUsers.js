@@ -32,9 +32,11 @@ export default function useUsers() {
     }
   };
 
-  const readUsers = async function () {
+  const readUsers = async function (query) {
     try {
-      const res = await api.get('/users');
+      const res = await api.get('/users', {
+        params: query
+      });
       const users = res.data.users;
       return users;
     } catch(err) {
@@ -54,7 +56,7 @@ export default function useUsers() {
 
   const deleteUser = async function (username) {
     try {
-      await api.delete(`/users/${username}`); // TODO: Not deleting token since there is no DB for that
+      await api.delete(`/users/${username}`);
     } catch(err) {
       const error = err.response ? err.response.data.message : err.message;
       throw new Error(error);
