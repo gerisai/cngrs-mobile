@@ -26,7 +26,7 @@ export default function EditPerson({ person }) {
     branch: person.branch,
     city: person.city
   });
-  const { readPerson, updatePerson, deletePerson } = usePeople();
+  const { updatePerson, deletePerson } = usePeople();
   const canEdit = canRoleDo(user.role, 'UPDATE', 'person');
   
   // Update
