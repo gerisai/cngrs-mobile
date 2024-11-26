@@ -8,8 +8,10 @@ import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
 import Loading from '@/components/Loading';
 import Filter from '@/components/Filter';
+import FilterChip from '@/components/FilterChip';
 import useUsers from '@/hooks/useUsers';
 import { emptyUsersFilter } from '@/constants/constants';
+import { LangMappings } from '@/util/i8n';
 
 export default function Users() {
   const [filter,setFilter] = useState(emptyUsersFilter); // filter object to collect properties
@@ -63,6 +65,14 @@ export default function Users() {
           handlePress={()=> setFiltersVisible(true)}
         />
       </View>
+      { Object.keys(filter).map((f,i) =>
+        filter[f].length !== 0 && 
+        <FilterChip 
+          key={i}
+          name={LangMappings[f]}
+          values={LangMappings[filter[f]] || filter[f].map(v => v || "N/A").join(', ')} 
+        />
+      )}
       <View className="flex items-center pt-4 gap-4">
       { queryUsers.map((p,i) =>
         <Card

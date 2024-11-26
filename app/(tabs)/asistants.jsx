@@ -8,11 +8,13 @@ import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
 import Loading from '@/components/Loading';
 import Filter from '@/components/Filter';
+import FilterChip from '@/components/FilterChip';
 import usePeople from '@/hooks/usePeople';
 import { emptyPeopleFilter } from '@/constants/constants';
+import { LangMappings } from '@/util/i8n';
 
 export default function Asistants() {
-  const [filter,setFilter] = useState(emptyPeopleFilter); // filter object to collect properties
+  const [filter, setFilter] = useState(emptyPeopleFilter); // filter object to collect properties
   const [filtersVisible, setFiltersVisible] = useState(false); // filter modal
   const [filterApplied, setFilterApplied] = useState(false); // apply controller to refecth data
   const { readPeople } = usePeople();
@@ -65,6 +67,14 @@ export default function Asistants() {
           handlePress={()=> setFiltersVisible(true)}
         />
       </View>
+      { Object.keys(filter).map((f,i) =>
+        filter[f].length !== 0 && 
+        <FilterChip 
+          key={i}
+          name={LangMappings[f]}
+          values={LangMappings[filter[f]] || filter[f].map(v => v || "N/A").join(', ')} 
+        />
+      )}
       <View className="flex items-center pt-4 gap-4">
       { queryPeople.map((p,i) =>
         <Card

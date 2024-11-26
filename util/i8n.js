@@ -10,5 +10,15 @@ export const LangMappings = {
             male: 'Masculino',
             female: 'Femenino'
         }
-    }
+    },
+    zone: 'Zona',
+    branch: 'Localidad',
+    room: 'Cuarto',
+    city: 'Ciudad',
+    role: 'Rol',
+    operator: 'Operador',
+    admin: 'Administrador',
+    accessed: 'Registrado',
+    true: 'Si',
+    false: 'No'
 }
