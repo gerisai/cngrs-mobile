@@ -82,7 +82,7 @@ export default function SignIn() {
             />
             <CustomButton 
               title={'Continuar'}
-              containerStyles="mt-4 p-4 border-2 border-white"
+              containerStyles="rounded-xl mt-4 p-4 border-2 border-white"
               textStyles="text-white"
               handlePress={onLogin}
               isLoading={loging}

@@ -26,7 +26,7 @@ export default function AboutScreen() {
               icon="front-hand"
               iconColor="white"
               title={'Permitir'}
-              containerStyles="bg-primary"
+              containerStyles="rounded-xl bg-primary"
               textStyles="text-white"
               handlePress={Linking.openSettings}
         />

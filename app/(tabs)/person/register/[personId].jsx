@@ -88,7 +88,7 @@ export default function Assistant() {
           title="Registrar"
           icon="check"
           iconColor="white"
-          containerStyles="my-2 p-3 bg-primary shadow"
+          containerStyles="rounded-xl my-2 p-3 bg-primary shadow"
           textStyles="text-white"
           handlePress={registerAccess}
         />

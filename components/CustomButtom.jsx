@@ -14,7 +14,7 @@ export default function CustomButton ({
   return (
     <TouchableOpacity
       onPress={handlePress}
-      className={`rounded-xl flex flex-row justify-center items-center 
+      className={`flex flex-row justify-center items-center
       ${ isLoading ? "bg-secondary" : "" }
       ${containerStyles}
       `}

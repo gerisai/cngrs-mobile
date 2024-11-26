@@ -10,7 +10,7 @@ import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import usePeople from "@/hooks/usePeople";
 import canRoleDo from '@/util/roleValidation';
-import { genders } from "@/util/constants";
+import { genders } from "@/constants/constants";
 
 export default function EditPerson({ person }) {
   const queryClient = useQueryClient();
@@ -93,7 +93,7 @@ export default function EditPerson({ person }) {
         </Text>
         <CustomButton 
           title={`${person.accessed ? "Registrado" : "Registrar"}`}
-          containerStyles={`p-3 px-8 ${person.accessed ? "bg-primary-100" : "shadow-sm bg-primary"}`}
+          containerStyles={`rounded-xl p-3 px-8 ${person.accessed ? "bg-primary-100" : "shadow-sm bg-primary"}`}
           textStyles={`${person.accessed ? "text-primary-400" : "text-white"}`}
           handlePress={registerAccess}
           isLoading={registering}
@@ -159,14 +159,14 @@ export default function EditPerson({ person }) {
         <>
         <CustomButton
           title={'Eliminar'}
-          containerStyles="my-2 p-3 border-2 border-red-500"
+          containerStyles="rounded-xl my-2 p-3 border-2 border-red-500"
           textStyles="text-red-500"
           handlePress={onDel}
           isLoading={deleting}
         />
         <CustomButton 
           title={'Guardar'}
-          containerStyles="my-2 p-3 bg-primary"
+          containerStyles="rounded-xl my-2 p-3 bg-primary"
           iconColor="#0396B7"
           textStyles="text-white"
           handlePress={submit}

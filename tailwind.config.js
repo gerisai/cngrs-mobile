@@ -9,7 +9,12 @@ module.exports = {
         primary: { 
           DEFAULT: "#00BFDD",
           100: "#CEFBFF",
-          400: "#1CD9F4"
+          400: "#1CD9F4",
+          500: "#00BFDD",
+          600: "#008B8B"
+        },
+        p: {
+          600: "#0396B7"
         },
         secondary: {
           DEFAULT: "#126078",
@@ -24,6 +29,9 @@ module.exports = {
         },
         orange: {
           400: "#DB6A00"
+        },
+        neutral: {
+          90: "#404040"
         }
       },
       fontFamily: {

@@ -61,7 +61,7 @@ export default function Home() {
         title="Registrar Asistente"
         icon="qr-code-scanner"
         iconColor="white"
-        containerStyles="my-2 p-6 bg-primary"
+        containerStyles="rounded-xl my-2 p-6 bg-primary"
         textStyles="text-white"
         handlePress={() => router.push('/scanner')}
       />
@@ -69,7 +69,7 @@ export default function Home() {
         title="Registro Manual"
         icon="edit"
         iconColor="#0396B7"
-        containerStyles="my-2 p-3 border-2 border-secondary-100"
+        containerStyles="rounded-xl my-2 p-3 border-2 border-secondary-100"
         textStyles="text-secondary-100"
         handlePress={() => console.log('register')}
       />

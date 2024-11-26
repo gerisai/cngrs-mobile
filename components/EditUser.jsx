@@ -6,7 +6,7 @@ import { Avatar } from "@react-native-material/core";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButtom";
 import useUsers from '@/hooks/useUsers';
-import { roles } from '@/util/constants';
+import { roles } from '@/constants/constants';
 import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import canRoleDo from '@/util/roleValidation';
@@ -103,7 +103,7 @@ export default function EditUser({ readUser }) {
         <>
         <CustomButton 
           title={'Guardar'}
-          containerStyles="my-2 p-3 bg-primary"
+          containerStyles="rounded-xl my-2 p-3 bg-primary"
           iconColor="#0396B7"
           textStyles="text-white"
           handlePress={submit}
@@ -111,7 +111,7 @@ export default function EditUser({ readUser }) {
         />
         <CustomButton 
           title={'Eliminar'}
-          containerStyles="my-2 p-3 border-2 border-red-500"
+          containerStyles="rounded-xl my-2 p-3 border-2 border-red-500"
           textStyles="text-red-500"
           handlePress={onDel}
           isLoading={deleting}
