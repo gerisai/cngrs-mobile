@@ -1,17 +1,29 @@
 import { View, Modal, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-import { categories } from '@/constants/constants';
 import FilterItem from '@/components/FilterItem';
 import CustomButton from '@/components/CustomButtom';
 import Category from '@/components/Category';
-import { emptyPeopleFilter } from '@/constants/constants';
+import { emptyPeopleFilter , emptyUsersFilter, categories, staticCategories, mutuallyExclusiveCategories } from '@/constants/constants';
 
+const defaults = {
+  user: {
+    emptyFilter: emptyUsersFilter,
+    initialCategory: "role"
+  },
+  person: {
+    emptyFilter: emptyPeopleFilter,
+    initialCategory: "room"
+  }
 
-export default function Filter({ show, setShow, filter, setFilter, applied, applyFn }) {
-  const [category,setCategory] = useState("room");
+}
+
+export default function Filter({ show, setShow, filter, setFilter, applied, applyFn, type }) {
+  const [category,setCategory] = useState(defaults[type].initialCategory);
+
+  const typeCategories = categories[type];
 
   const resetFilter = () => {
-    setFilter(emptyPeopleFilter);
+    setFilter(defaults[type].emptyFilter);
   }
 
   const apply = () => {
@@ -36,7 +48,7 @@ export default function Filter({ show, setShow, filter, setFilter, applied, appl
           <View style={{ height: '73%' }} className="flex-row">
             <View className="bg-[#EDEDED] w-1/2">
               <FlatList
-                data={categories}
+                data={typeCategories}
                 renderItem={({item}) => 
                   <FilterItem 
                     title={item.title}
@@ -52,7 +64,8 @@ export default function Filter({ show, setShow, filter, setFilter, applied, appl
               name={category}
               filter={filter}
               setFilter={setFilter}
-              isStatic={['room', 'accessed'].includes(category)}
+              isStatic={staticCategories.includes(category)}
+              isRadio={mutuallyExclusiveCategories.includes(category)}
             />
           </View>
           <View className="flex-row justify-center items-center py-5 px-5">

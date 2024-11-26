@@ -4,16 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import Checkbox from '@/components/Checkbox';
 import Radio from '@/components/Radio';
 import { Divider } from "@react-native-material/core";
-import { getStaticPeopleCategory } from '@/constants/constants';
+import { getStaticCategory } from '@/constants/constants';
 import usePeople from '@/hooks/usePeople';
 import Loading from '@/components/Loading';
 
-export default function Category ({ name, filter, setFilter, isStatic }) {
+export default function Category ({ name, filter, setFilter, isStatic, isRadio }) {
   const { getPeopleCategory } = usePeople();
-  const [checked,setChecked] = useState(filter['accessed'].length === 0 ? null : filter['accessed'][0]); // Pulling up radio state to enable "Todos" to change it
+
+  const [checked,setChecked] = useState(filter[name].length === 0 ? null : filter[name][0]); // Pulling up radio state to enable "Todos" to change it
 
   const { data: category , isPending, error } = useQuery({
-    queryFn: isStatic ? () => getStaticPeopleCategory(name) : () => getPeopleCategory(name),
+    queryFn: isStatic ? () => getStaticCategory(name) : () => getPeopleCategory(name),
     queryKey: ['category',{ name }],
     retry: false,
     staleTime: 5 * 60 * 1000 // Wait at least 5 min before refetching
@@ -24,7 +25,7 @@ export default function Category ({ name, filter, setFilter, isStatic }) {
 
   const setAll = () => {
     setFilter({ ...filter, [name]: [] });
-    if (name === "accessed") setChecked(null);
+    if (isRadio) setChecked(null);
   }
   
   return (
@@ -37,7 +38,7 @@ export default function Category ({ name, filter, setFilter, isStatic }) {
       />
     <Divider />
     <View className="pr-4">
-    { name !== "accessed" ? category.map((c,i) => (
+    { !isRadio ? category.map((c,i) => (
       <Checkbox
         key={i}
         text={c || "N/A"}
@@ -50,10 +51,7 @@ export default function Category ({ name, filter, setFilter, isStatic }) {
       />
     )) :
       <Radio
-        options={[
-          { value: false, text: "No" },
-          { value: true, text: "Si" }
-        ]}
+        options={category}
         containerStyles="mx-4 m-2"
         handlePress={(value) => setFilter({
           ...filter, 

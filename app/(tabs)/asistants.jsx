@@ -82,6 +82,7 @@ export default function Asistants() {
       setShow={setFiltersVisible}
       applyFn={setFilterApplied}
       applied={filterApplied}
+      type="person"
     />
     </>
   );
