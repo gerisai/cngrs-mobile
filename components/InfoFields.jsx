@@ -9,7 +9,7 @@ export default function InfoFields({ iconColor, iconSize, labelColor, valueColor
           <MaterialIcons 
             className="mr-2"
             name={d.icon}
-            color={d.value === "admin" ? "#5CC3B5" : iconColor}
+            color={d.value === "Administrador" ? "#5CC3B5" : iconColor}
             size={iconSize}
           />
           { d.label && <Text className={`font-rbold ${textSize} ${labelColor}`}>{d.label}: </Text> }
@@ -17,7 +17,7 @@ export default function InfoFields({ iconColor, iconSize, labelColor, valueColor
             style={{ flex: 1 }}
             ellipsizeMode="tail"
             numberOfLines={1}
-            className={`font-rbold ${textSize} ${d.value === "admin" ? "text-[#5CC3B5]" : valueColor}`}>
+            className={`font-rbold ${textSize} ${d.value === "Administrador" ? "text-[#5CC3B5]" : valueColor}`}>
           {d.value}
           </Text>
         </View>

@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import InfoFields from '@/components/InfoFields';
 import { fields } from '@/constants/constants';
+import { LangMappings } from "@/util/i8n";
 
 const typeStyles = {
     true: {
@@ -26,7 +27,7 @@ function buildData (data, type) {
   typeFields[type].forEach((e,i) => {
     pair.push({
       icon: e !== "role" ? fields[e].icon : fields[e].icon[data.role],
-      value: data[e] || "Pendiente"
+      value: e !== "role" ? data[e] || "Pendiente" : LangMappings.user.roles[data[e]]
     });
     if (i % 2 !== 0) {
       builtData.push(pair);
