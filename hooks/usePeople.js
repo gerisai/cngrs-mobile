@@ -76,6 +76,21 @@ export default function usePeople() {
     }
   };
 
+  const getPeopleCategory = async function (name) {
+    try {
+      const res = await api.get("/people/category", { 
+        params: {
+          name
+        }
+      });
+      const { category } = res.data;
+      return category;
+    } catch(err) {
+      const error = err.response ? err.response.data.message : err.message;
+      throw new Error(error);
+    }
+  };
+
   return {
   createPerson,
   bulkCreatePeople,
@@ -83,6 +98,7 @@ export default function usePeople() {
   readPeople,
   updatePerson,
   deletePerson,
-  getPeopleStats
+  getPeopleStats,
+  getPeopleCategory
   }
 }

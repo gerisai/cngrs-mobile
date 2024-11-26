@@ -7,17 +7,24 @@ import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
 import Loading from '@/components/Loading';
+import Filter from '@/components/Filter';
 import usePeople from '@/hooks/usePeople';
+import { emptyPeopleFilter } from '@/constants/constants';
 
 export default function Asistants() {
+  const [filter,setFilter] = useState(emptyPeopleFilter); // filter object to collect properties
+  const [filtersVisible, setFiltersVisible] = useState(false); // filter modal
+  const [filterApplied, setFilterApplied] = useState(false); // apply controller to refecth data
   const { readPeople } = usePeople();
   const queryClient = useQueryClient();
   const [input, setInput] = useState(null);
   const [search, setSearch] = useState(null);
   
   const { data: queryPeople , isPending, error } = useQuery({
-    queryFn: () => readPeople({ name: search }),
-    queryKey: ['people', { search }],
+    queryFn: () => {
+      return readPeople({ name: search, ...filter })
+    },
+    queryKey: ['people', { search }, { filterApplied }],
     retry: false
   });
 
@@ -35,6 +42,7 @@ export default function Asistants() {
   }
 
   return (
+    <>
     <ScrollView 
       className="w-full h-full p-4"
       directionalLockEnabled={true}
@@ -50,10 +58,11 @@ export default function Asistants() {
           clear={() => setSearch(null)}
         />
         <CustomButton
-          containerStyles="bg-primary w-2/12 rounded-lg shadow"
+          containerStyles="rounded-lg bg-primary w-2/12 shadow"
           icon="filter-alt"
           iconColor="white"
           iconSize={32}
+          handlePress={()=> setFiltersVisible(true)}
         />
       </View>
       <View className="flex items-center pt-4 gap-4">
@@ -66,5 +75,14 @@ export default function Asistants() {
       )}
       </View>
     </ScrollView>
+    <Filter
+      filter={filter}
+      setFilter={setFilter}
+      show={filtersVisible}
+      setShow={setFiltersVisible}
+      applyFn={setFilterApplied}
+      applied={filterApplied}
+    />
+    </>
   );
 }
