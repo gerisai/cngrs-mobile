@@ -1,30 +1,35 @@
-import { View, ScrollView, RefreshControl } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
 import Loading from '@/components/Loading';
 import Filter from '@/components/Filter';
-import FilterChip from '@/components/FilterChip';
 import useUsers from '@/hooks/useUsers';
-import { emptyUsersFilter } from '@/constants/constants';
-import { LangMappings } from '@/util/i8n';
+import { emptyUsersFilter, pageSize } from '@/constants/constants';
+import EmptyResult from '@/components/EmptyResult';
 
 export default function Users() {
-  const [filter,setFilter] = useState(emptyUsersFilter); // filter object to collect properties
-  const [filtersVisible, setFiltersVisible] = useState(false); // filter modal
-  const [filterApplied, setFilterApplied] = useState(false); // apply controller to refecth data
+  const [filter,setFilter] = useState(emptyUsersFilter); // Filter object to collect properties
+  const [filtersVisible, setFiltersVisible] = useState(false); // Filter modal
+  const [filterApplied, setFilterApplied] = useState(false); // Controls filter applied state
+  const [filterChanged,setFilterChanged] = useState(false); // Controls changes in filter to refetch
   const { readUsers } = useUsers();
   const queryClient = useQueryClient();
   const [input, setInput] = useState(null);
   const [search, setSearch] = useState(null);
 
-  const { data: queryUsers , isPending, error } = useQuery({
-    queryFn: () => readUsers({ name: search, ...filter }),
-    queryKey: ['users', { search }, { filterApplied }],
+  const { data: queryUsers , isPending, fetchNextPage, hasNextPage, error } = useInfiniteQuery({
+    queryFn: ({ pageParam = 1 }) => {
+      return readUsers({ name: search, ...filter, limit: pageSize, page: pageParam })
+    },
+    getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length >= pageSize ? allPages.length + 1 : undefined
+    },
+    queryKey: ['users', { search }, { filterChanged }],
     retry: false
   });
 
@@ -38,17 +43,13 @@ export default function Users() {
   }
 
   const onRefresh = () => {
-    queryClient.invalidateQueries(['users', { search }]);
+    queryClient.invalidateQueries(['users', { search }, { filterChanged }]);
   }
 
   return (
     <>
-    <ScrollView 
+    <View 
       className="w-full h-full p-4"
-      directionalLockEnabled={true}
-      refreshControl={
-        <RefreshControl refreshing={isPending} onRefresh={onRefresh} />
-      }
     >
       <View className="flex-row gap-6">
         <CustomSearchBar
@@ -58,31 +59,33 @@ export default function Users() {
           clear={() => setSearch(null)}
         />
         <CustomButton
-          containerStyles="bg-primary w-2/12 rounded-lg shadow"
-          icon="filter-alt"
+          containerStyles={`${filterApplied ? "bg-secondary" : "bg-primary"} rounded-lg w-2/12 shadow`}
+          icon={filterApplied ? "filter-alt-off" : "filter-alt"}
           iconColor="white"
           iconSize={32}
           handlePress={()=> setFiltersVisible(true)}
         />
       </View>
-      { Object.keys(filter).map((f,i) =>
-        filter[f].length !== 0 && 
-        <FilterChip 
-          key={i}
-          name={LangMappings[f]}
-          values={LangMappings[filter[f]] || filter[f].map(v => v || "N/A").join(', ')} 
+      <View style={{ paddingBottom: 35 }}>
+        <FlatList
+          onRefresh={onRefresh}
+          refreshing={isPending}
+          data={queryUsers.pages.flat()}
+          keyExtractor={item => item.username}
+          renderItem={({ item }) => 
+            <Card
+              data={item}
+              type="user"
+            />
+          }
+          onEndReached={hasNextPage && fetchNextPage}
+          ListFooterComponent={isPending && ActivityIndicator}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={<EmptyResult/>}
         />
-      )}
-      <View className="flex items-center pt-4 gap-4">
-      { queryUsers.map((p,i) =>
-        <Card
-          key={i}
-          data={p}
-          type="user"
-        />
-      )}
       </View>
-    </ScrollView>
+    </View>
     <Filter
       filter={filter}
       setFilter={setFilter}
@@ -90,6 +93,8 @@ export default function Users() {
       setShow={setFiltersVisible}
       applyFn={setFilterApplied}
       applied={filterApplied}
+      filterChanged={filterChanged}
+      setFilterChanged={setFilterChanged}
       type="user"
     />
     </>

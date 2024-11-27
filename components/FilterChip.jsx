@@ -12,7 +12,7 @@ export default function FilterChip({ name, values }) {
         valueColor="text-s-500"
       />
       <View className="m-1">
-        <Text style={{ flex: 1 }} ellipsizeMode="tail" numberOfLines={1} className="font-rbold">{values || 'N/A'}</Text>
+        <Text ellipsizeMode="tail" numberOfLines={1} className="font-rbold">{values || 'N/A'}</Text>
       </View>
     </View>
   )

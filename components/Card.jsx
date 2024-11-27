@@ -43,7 +43,7 @@ export default function Card({ data, type }) {
   const id = type === "person" ? data.personId : data.username
   const displayData = buildData(data,type);
   return (
-    <View className="flex gap-2 bg-white border-1 rounded-md p-4">
+    <View className="flex gap-2 bg-white border-1 rounded-md p-4 my-2">
       <TouchableOpacity onPress={() => router.push(`/${type}/edit/${id}`)}>
       <View className="flex-row gap-2 mb-2">
         {  type === "person" && <MaterialIcons name={style.icon} color={style.color} size={24}/> }

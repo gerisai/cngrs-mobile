@@ -1,3 +1,5 @@
+export const pageSize = 10;
+
 export const url = /^(https:\/\/cngrs\.jidi\.com\.mx\/person\/)[a-z]+$/;
 
 export const fields = {

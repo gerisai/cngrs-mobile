@@ -17,8 +17,9 @@ const defaults = {
 
 }
 
-export default function Filter({ show, setShow, filter, setFilter, applied, applyFn, type }) {
+export default function Filter({ show, setShow, filter, setFilter, applyFn, filterChanged, setFilterChanged, type }) {
   const [category,setCategory] = useState(defaults[type].initialCategory);
+  const [prevFilter,setPrevFilter] = useState(filter); // Keep track of previous filter state
 
   const typeCategories = categories[type];
 
@@ -28,7 +29,14 @@ export default function Filter({ show, setShow, filter, setFilter, applied, appl
 
   const apply = () => {
     setShow(false);
-    applyFn(!applied);
+    // Check if filters are not empty
+
+    JSON.stringify(filter) === JSON.stringify(emptyPeopleFilter) ? applyFn(false) : applyFn(true);
+    // Check if filter changed
+    if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
+      setFilterChanged(!filterChanged);
+      setPrevFilter(filter);
+    } 
   }
 
   return (
