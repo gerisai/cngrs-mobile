@@ -8,7 +8,7 @@ export default function Select({ title, data, disabled, value, onSelect }) {
 
   const chooseOption = (value) => {
     onSelect(value);
-    setModalVisible(!modalVisible)
+    setModalVisible(!modalVisible);
   }
 
   const Item = ({title, value}) => (

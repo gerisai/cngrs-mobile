@@ -20,7 +20,7 @@ export default function SignFormField({
   return (
     <View className={`${containerStyles}`}>
       <TextInput
-        className="font-rlight"
+        className="font-rregular"
         style={{
           backgroundColor: 'white',
           borderRadius: 5

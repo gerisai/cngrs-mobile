@@ -17,8 +17,8 @@ export const roles = [
 ];
 
 export const genders = [
-  { id: '1', title: "Masculino", value: "admin"},
-  {id: '2', title: "Femenino", value: "operator"}
+  { id: '1', title: "Masculino", value: "male"},
+  {id: '2', title: "Femenino", value: "female"}
 ];
 
 export const categories = {
