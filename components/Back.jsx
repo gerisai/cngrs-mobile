@@ -1,5 +1,4 @@
 import { TouchableOpacity } from 'react-native';
-import { router } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Back({ size = 24, handlePress, styles, color = "#000" }) {

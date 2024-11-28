@@ -102,6 +102,7 @@ export default function User() {
             defaultValue={user.name}
             handleChangeText={(e) => setForm({ ...form, name: e })}
             disabled={!canEdit}
+            required
           />
           <Select
             title="Rol"
@@ -109,6 +110,7 @@ export default function User() {
             data={roles}
             onSelect={(e) => setForm({ ...form, role: e })}
             disabled={!canEdit}
+            required
           />
           <FormField
             name="Contraseña"

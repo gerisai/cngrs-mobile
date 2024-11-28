@@ -1,6 +1,5 @@
 import { View, KeyboardAvoidingView, ScrollView, Platform, Text } from "react-native";
 import { router } from 'expo-router';
-import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import usePeople from "@/hooks/useUsers";
@@ -10,15 +9,18 @@ import CustomButton from "@/components/CustomButtom";
 import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import Back from '@/components/Back';
+import validateForm from "@/util/formValidation";
+import useCustomState from "@/hooks/useCustomState";
 
 export default function User() {
   const { createUser } = usePeople();
   const queryClient = useQueryClient();
-  const [form, setForm] = useState(emptyUserForm);
+  const [form, setForm] = useCustomState(emptyUserForm);
 
   // Create
   const { mutateAsync: submit, isPending: creating, error } = useMutation({
     mutationFn: async () => {
+      if(!validateForm(form, Alert.alert)) return
       try {
         await createUser(form);
         setForm(emptyUserForm);
@@ -56,23 +58,27 @@ export default function User() {
           <FormField
             name="Usuario"
             value={form.username}
+            required
           />
           <FormField
             name="Nombre"
             value={form.name}
             handleChangeText={(e) => setForm({ ...form, name: e })}
+            required
           />
           <Select
             title="Rol"
             value={LangMappings.user.roles[form.role]}
             data={roles}
             onSelect={(e) => setForm({ ...form, role: e })}
+            required
           />
           <FormField
             name="Contraseña"
             value={form.password}
             secure={true}
             handleChangeText={(e) => setForm({ ...form, password: e })}
+            required
           />
           <View className="flex gap-0">
             <CustomButton

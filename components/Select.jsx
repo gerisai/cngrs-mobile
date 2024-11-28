@@ -1,14 +1,21 @@
 import { TouchableOpacity, Text, Modal, View, FlatList, Pressable } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useState } from "react";
+import useCustomState from "@/hooks/useCustomState";
 
 
-export default function Select({ title, data, disabled, value, onSelect }) {
+export default function Select({ title, data, disabled, value, onSelect, required = false }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [valid, setValid] = useCustomState(true);
 
   const chooseOption = (value) => {
+    setValid(true);
     onSelect(value);
     setModalVisible(!modalVisible);
+  }
+
+  const validate = () => {
+    if (required && !value) setValid(false);
   }
 
   const Item = ({title, value}) => (
@@ -19,11 +26,16 @@ export default function Select({ title, data, disabled, value, onSelect }) {
 
   return (
     <>
-    <Text className="text-md font-rbold">{title}</Text>
+    <Text className="text-md font-rbold">{title}<Text className="text-red-500">{required && " *"}</Text></Text>
     <TouchableOpacity
       onPress={() => setModalVisible(!modalVisible)}
-      className={`h-12 justify-center bg-white border border-slate-400 rounded-lg ${disabled ? "opacity-50" : ""}`}
+      className={`h-12 justify-center bg-white border rounded-lg 
+      ${disabled ? "opacity-50" : ""}
+      ${valid ? "focus:border-primary" : "focus:border-red-500"}
+      ${valid ? "border-slate-400" : "border-red-500" }
+      `}
       disabled={disabled}
+      onBlur={validate}
     >
     <View className="flex-row items-center justify-between">
       <Text className="text-black font-rmedium p-2 pl-3">{value}</Text>
@@ -38,7 +50,11 @@ export default function Select({ title, data, disabled, value, onSelect }) {
       onRequestClose={() => {
         setModalVisible(!modalVisible);
     }}>
-      <Pressable onPressIn={() => setModalVisible(false)} className="flex-1 justify-end items-center">
+      <Pressable onPressIn={() => {
+          validate();
+          setModalVisible(false);
+        }} 
+        className="flex-1 justify-end items-center">
         <View className="bg-primary flex items-center rounded-3xl w-full pb-12 pt-4 shadow-xl">
         <FlatList
           data={data}

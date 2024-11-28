@@ -10,6 +10,7 @@ import { roles } from '@/constants/constants';
 import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import canRoleDo from '@/util/roleValidation';
+import validateForm from "@/util/formValidation";
 
 export default function EditUser({ readUser }) {
   const queryClient = useQueryClient();
@@ -26,6 +27,7 @@ export default function EditUser({ readUser }) {
   // Update
   const { mutateAsync: submit, isPending: updating } = useMutation({
     mutationFn: async () => {
+      if(!validateForm(form, Alert.alert)) return
       try {
         await updateUser(form);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario actualizado'});
@@ -83,6 +85,7 @@ export default function EditUser({ readUser }) {
         value={form.name}
         handleChangeText={(e) => setForm({ ...form, name: e })}
         disabled={!canEdit}
+        required
       />
       <Select
         title="Rol"
@@ -90,6 +93,7 @@ export default function EditUser({ readUser }) {
         data={roles}
         onSelect={(e) => setForm({ ...form, role: e })}
         disabled={!canEdit}
+        required
       />
       <FormField
         name="Contraseña"

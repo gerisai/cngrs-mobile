@@ -12,7 +12,13 @@ export const LangMappings = {
         }
     },
     zone: 'Zona',
+    name: 'Nombre',
+    username: 'Usuario',
+    email: "Correo",
+    cellphone: "Teléfono",
+    password: 'Contraseña',
     branch: 'Localidad',
+    gender: 'Género',
     room: 'Cuarto',
     city: 'Ciudad',
     role: 'Rol',

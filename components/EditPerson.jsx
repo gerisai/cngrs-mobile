@@ -11,6 +11,7 @@ import { LangMappings } from "@/util/i8n";
 import usePeople from "@/hooks/usePeople";
 import canRoleDo from '@/util/roleValidation';
 import { genders } from "@/constants/constants";
+import validateForm from "@/util/formValidation";
 
 export default function EditPerson({ person }) {
   const queryClient = useQueryClient();
@@ -32,6 +33,7 @@ export default function EditPerson({ person }) {
   // Update
   const { mutateAsync: submit, isPending: updating } = useMutation({
     mutationFn: async () => {
+      if(!validateForm(form, Alert.alert)) return
       try {
         await updatePerson({ personId: person.personId, ...form });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente actualizado'});
@@ -103,6 +105,7 @@ export default function EditPerson({ person }) {
         value={form.name}
         handleChangeText={(e) => setForm({ ...form, name: e })}
         disabled={!canEdit}
+        required
       />
       <Select
         title="Género"
@@ -110,18 +113,21 @@ export default function EditPerson({ person }) {
         data={genders}
         onSelect={(e) => setForm({ ...form, gender: e })}
         disabled={!canEdit}
+        required
       />
       <FormField
         name="Teléfono"
         value={form.cellphone}
         handleChangeText={(e) => setForm({ ...form, cellphone: e })}
         disabled={!canEdit}
+        required
       />
       <FormField
         name="Correo"
         value={form.email}
         handleChangeText={(e) => setForm({ ...form, email: e })}
         disabled={!canEdit}
+        required
       />
       <FormField
         name="Tutor"

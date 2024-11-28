@@ -1,6 +1,5 @@
-import { View, KeyboardAvoidingView, ScrollView, Platform, Text } from "react-native";
+import { View, KeyboardAvoidingView, ScrollView, Platform, Text, Alert } from "react-native";
 import { router } from 'expo-router';
-import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import usePeople from "@/hooks/usePeople";
@@ -10,21 +9,26 @@ import CustomButton from "@/components/CustomButtom";
 import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import Back from '@/components/Back';
+import validateForm from "@/util/formValidation";
+import useCustomState from "@/hooks/useCustomState";
 
 export default function Assistant() {
   const { createPerson } = usePeople();
   const queryClient = useQueryClient();
-  const [form, setForm] = useState(emptyPersonForm);
+  const [form, setForm] = useCustomState(emptyPersonForm);
+
 
   // Create
   const { mutateAsync: submit, isPending: creating, error } = useMutation({
     mutationFn: async () => {
+      if(!validateForm(form, Alert.alert)) return
       try {
         await createPerson(form);
         setForm(emptyPersonForm);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente creado'});
         router.replace('/asistants');
       } catch(err) {
+        console.log(err)
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }
     },
@@ -45,7 +49,7 @@ export default function Assistant() {
       keyboardVerticalOffset={10}
     >
       <ScrollView directionalLockEnabled={true}>
-      <Back styles="px-2 pt-4" handlePress={() => router.push('/asistants')} size={32} />
+      <Back styles="px-2 pt-4" handlePress={() => router.replace('/asistants')} size={32} />
       <View className="w-full h-full flex px-8 py-2 bg-gray">
         <View className="flex gap-2">
           <View className="flex-row items-center justify-between">
@@ -57,22 +61,28 @@ export default function Assistant() {
             name="Nombre"
             value={form.name}
             handleChangeText={(e) => setForm({ ...form, name: e })}
+            required
           />
           <Select
             title="Género"
             value={LangMappings.person.genders[form.gender]}
             data={genders}
             onSelect={(e) => setForm({ ...form, gender: e })}
+            required
           />
           <FormField
             name="Teléfono"
+            type="tel"
             value={form.cellphone}
             handleChangeText={(e) => setForm({ ...form, cellphone: e })}
+            required
           />
           <FormField
             name="Correo"
+            type="email"
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
+            required
           />
           <FormField
             name="Tutor"
@@ -83,6 +93,7 @@ export default function Assistant() {
             name="Observaciones médicas"
             value={form.illness}
             handleChangeText={(e) => setForm({ ...form, illness: e })}
+            multiline={true}
           />
           <FormField
             name="Zona / Estado"

@@ -9,6 +9,7 @@ import { logoWhite } from '@/constants/images';
 import SignFormField from "@/components/SignFormField.jsx";
 import CustomButton from "@/components/CustomButtom.jsx";
 import { useUser } from '@/lib/context/user.jsx';
+import validateForm from "@/util/formValidation";
 import '@/global.css';
 
 export default function SignIn() {
@@ -22,10 +23,7 @@ export default function SignIn() {
   // Login
   const { mutateAsync: onLogin, isPending: loging } = useMutation({
     mutationFn: async () => {
-      if (form.username === "" || form.password === "") {
-        Alert.alert("Error", "Por favor llena todos los campos");
-        return
-      }
+      if(!validateForm(form, Alert.alert)) return
       try {
         await login(form);
         router.replace("/home");
