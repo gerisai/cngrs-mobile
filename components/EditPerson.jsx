@@ -15,10 +15,10 @@ import { genders } from "@/constants/constants";
 export default function EditPerson({ person }) {
   const queryClient = useQueryClient();
   const { user } = useUser();
-  const [form,setForm] = useState({
+  const [form, setForm] = useState({
     name: person.name,
     gender: person.gender,
-    cellphone: person.cellphone,
+    cellphone: String(person.cellphone),
     email: person.email,
     tutor: person.tutor,
     illness: person.illness,
@@ -35,7 +35,7 @@ export default function EditPerson({ person }) {
       try {
         await updatePerson({ personId: person.personId, ...form });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente actualizado'});
-        router.replace('/home')
+        router.replace('/asistants');
       } catch(err) {
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }
@@ -49,9 +49,8 @@ export default function EditPerson({ person }) {
   const { mutateAsync: registerAccess, isPending: registering } = useMutation({
     mutationFn: async () => {
       try {
-        await updatePerson({ personId, accessed: true });
+        await updatePerson({ person: person.personId, accessed: true });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Registro exitoso'});
-        router.replace('/home')
       } catch(err) {
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }
@@ -65,9 +64,9 @@ export default function EditPerson({ person }) {
   const { mutateAsync: del, isPending: deleting } = useMutation({
     mutationFn: async () => {
       try {
-        await deletePerson(personId);
+        await deletePerson(person.personId);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente borrado'});
-        router.replace('/home')
+        router.replace('/asistants');
       } catch(err) {
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }

@@ -29,7 +29,7 @@ export default function EditUser({ readUser }) {
       try {
         await updateUser(form);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario actualizado'});
-        router.replace('/home')
+        router.replace('/users');
       } catch(err) {
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }
@@ -45,7 +45,7 @@ export default function EditUser({ readUser }) {
       try {
         await deleteUser(readUser.username);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario borrado'});
-        router.replace('/home')
+        router.replace('/users');
       } catch(err) {
         Toast.show({ type: 'error', topOffset: 100, text1: err.message });
       }
