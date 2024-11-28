@@ -67,12 +67,12 @@ export default function Home() {
         handlePress={() => router.push('/scanner')}
       />
       <CustomButton
-        title="Registro Manual"
+        title="Crear asistente"
         icon="edit"
         iconColor="#0396B7"
         containerStyles="rounded-xl my-2 p-3 border-2 border-secondary-100"
         textStyles="text-secondary-100"
-        handlePress={() => console.log('register')}
+        handlePress={() => router.push('/person/new/person')}
       />
       </View>
     </View>

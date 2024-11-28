@@ -55,3 +55,22 @@ export const emptyPeopleFilter = {
 export const emptyUsersFilter = {
   role: []
 };
+
+export const emptyPersonForm = {
+  name: null,
+  gender: null,
+  cellphone: null,
+  email: null,
+  tutor: null,
+  illness: null,
+  zone: null,
+  branch: null,
+  city: null
+};
+
+export const emptyUserForm = {
+  username: null,
+  name: null,
+  role: null,
+  password: null
+};

@@ -11,6 +11,7 @@ import Filter from '@/components/Filter';
 import usePeople from '@/hooks/usePeople';
 import { emptyPeopleFilter, pageSize } from '@/constants/constants';
 import EmptyResult from '@/components/EmptyResult';
+import FAB from '@/components/FAB';
 
 export default function Asistants() {
   const [filter, setFilter] = useState(emptyPeopleFilter); // Filter object to collect properties
@@ -48,9 +49,16 @@ export default function Asistants() {
 
   return (
     <>
-    <View 
+    <View
       className="w-full h-full p-4"
     >
+      <FAB
+        icon="add"
+        containerStyles="bg-primary rounded-full"
+        iconSize={32}
+        iconColor="white"
+        handlePress={() => router.push("/person/new/person")}
+      />
       <View className="flex-row gap-6">
         <CustomSearchBar
           onChangeText={e => setInput(e)}

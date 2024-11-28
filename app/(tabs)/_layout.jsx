@@ -78,9 +78,11 @@ export default function TabsLayout() {
       ))
     }
       <Tabs.Screen name="user" options={{href: null}}/>
-      <Tabs.Screen name="person/register/[personId]" options={{href: null}}/>
-      <Tabs.Screen name="person/edit/[personId]" options={{href: null}}/>
-      <Tabs.Screen name="user/edit/[username]" options={{href: null}}/>
+      <Tabs.Screen name="person/register/[personId]" options={{ href: null }}/>
+      <Tabs.Screen name="person/edit/[personId]" options={{href: null, freezeOnBlur: true }}/>
+      <Tabs.Screen name="person/new/person" options={{ href: null, freezeOnBlur: true } }/>
+      <Tabs.Screen name="user/edit/[username]" options={{ href: null , freezeOnBlur: true}}/>
+      <Tabs.Screen name="user/new/user" options={{ href: null, freezeOnBlur: true } }/>
     </Tabs>
   )
 }

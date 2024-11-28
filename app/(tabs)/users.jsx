@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
+import { useUser } from '@/lib/context/user';
 import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
 import CustomButton from '@/components/CustomButtom';
@@ -10,7 +11,9 @@ import Loading from '@/components/Loading';
 import Filter from '@/components/Filter';
 import useUsers from '@/hooks/useUsers';
 import { emptyUsersFilter, pageSize } from '@/constants/constants';
+import canRoleDo from '@/util/roleValidation';
 import EmptyResult from '@/components/EmptyResult';
+import FAB from '@/components/FAB';
 
 export default function Users() {
   const [filter,setFilter] = useState(emptyUsersFilter); // Filter object to collect properties
@@ -21,6 +24,8 @@ export default function Users() {
   const queryClient = useQueryClient();
   const [input, setInput] = useState(null);
   const [search, setSearch] = useState(null);
+  const { user } = useUser();
+  const canCreate = canRoleDo(user.role, 'CREATE', 'user');
 
   const { data: queryUsers , isPending, fetchNextPage, hasNextPage, error } = useInfiniteQuery({
     queryFn: ({ pageParam = 1 }) => {
@@ -48,9 +53,18 @@ export default function Users() {
 
   return (
     <>
-    <View 
+    <View
       className="w-full h-full p-4"
     >
+      { canCreate &&
+        <FAB
+          icon="add"
+          containerStyles="bg-primary rounded-full"
+          iconSize={32}
+          iconColor="white"
+          handlePress={() => router.push("/user/new/user")}
+        />
+      }
       <View className="flex-row gap-6">
         <CustomSearchBar
           onChangeText={e => setInput(e)}
