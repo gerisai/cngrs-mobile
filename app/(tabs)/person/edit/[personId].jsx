@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 import { useQuery } from '@tanstack/react-query';
 import usePeople from "@/hooks/usePeople";
 import EditPerson from '@/components/EditPerson';
+import Back from '@/components/Back';
 
 export default function Assistant() {
   const { personId } = useLocalSearchParams();
@@ -23,7 +24,7 @@ export default function Assistant() {
 
   if (error) {
     Toast.show({ type: 'error', topOffset: 100, text1: error.message });
-    router.replace("/home");
+    router.replace("/asistants");
   }
 
   return (
@@ -33,7 +34,8 @@ export default function Assistant() {
       keyboardVerticalOffset={10}
     >
       <ScrollView directionalLockEnabled={true}>
-      <View className="w-full h-full flex p-8 bg-gray">
+      <Back styles="px-2 pt-4" handlePress={() => router.push('/asistants')} size={32} />
+      <View className="w-full h-full flex px-8 py-2 bg-gray">
         <EditPerson person={person}/>
       </View>
       </ScrollView>
