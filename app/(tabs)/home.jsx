@@ -28,8 +28,7 @@ export default function Home() {
 
   if (accessError || totalError) {
     const error = accessError || totalError;
-    Alert.alert(`Error: ${error.message}`);
-    router.replace("/home");
+    Alert.alert(`Error home: ${error.message}`);
   }
 
   const onRefresh = () => {
