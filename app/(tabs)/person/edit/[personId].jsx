@@ -1,7 +1,6 @@
-import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import { View, KeyboardAvoidingView, ScrollView, Platform, Alert } from "react-native";
 import { router, useLocalSearchParams } from 'expo-router';
 import Loading from '@/components/Loading';
-import Toast from 'react-native-toast-message';
 import { useQuery } from '@tanstack/react-query';
 import usePeople from "@/hooks/usePeople";
 import EditPerson from '@/components/EditPerson';
@@ -23,7 +22,7 @@ export default function Assistant() {
   }
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/asistants");
   }
 

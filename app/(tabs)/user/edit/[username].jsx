@@ -1,7 +1,7 @@
-import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { View, ScrollView, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import { useEffect } from "react";
 import { useQuery } from '@tanstack/react-query';
-import { router, useLocalSearchParams } from 'expo-router';
-import Toast from 'react-native-toast-message';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import useUsers from '@/hooks/useUsers';
 import EditUser from '@/components/EditUser';
 import Loading from '@/components/Loading';
@@ -22,8 +22,8 @@ export default function User() {
   }
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
-    router.replace("/home");
+    Alert.alert(`Error: ${error.message}`);
+    router.replace("/users");
   }
 
   return (

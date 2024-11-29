@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { Text, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity, Alert } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Avatar } from "@react-native-material/core";
@@ -48,7 +48,7 @@ export default function User() {
       Toast.show({ type: 'success', topOffset: 100, text1: 'Avatar actualizado'});
     }
     catch (err) {
-      Toast.show({ type: 'error', topOffset: 100, text1: err.message});
+      Alert.alert(`Error: ${err.message}`);
     }
   }
 
@@ -60,7 +60,7 @@ export default function User() {
         setForm({ ...form, password: null });
         router.replace('/home')
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {

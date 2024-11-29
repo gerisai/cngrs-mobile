@@ -1,9 +1,8 @@
-import { Text, View, RefreshControl, ScrollView } from "react-native";
+import { Text, View, RefreshControl, ScrollView, Alert } from "react-native";
 import { Image } from 'expo-image';
 import { router } from "expo-router";
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { logo } from '@/constants/images';
-import Toast from 'react-native-toast-message';
 import Stats from '@/components/Stats';
 import CustomButton from "@/components/CustomButtom";
 import Loading from '@/components/Loading';
@@ -29,7 +28,7 @@ export default function Home() {
 
   if (accessError || totalError) {
     const error = accessError || totalError;
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/home");
   }
 

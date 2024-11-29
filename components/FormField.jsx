@@ -7,6 +7,7 @@ export default function FormField({
   defaultValue,
   required = false,
   multiline = false,
+  autoCapitalize = 'sentences',
   value,
   placeholder,
   handleChangeText,
@@ -20,6 +21,7 @@ export default function FormField({
 
   const validate = () => {
     if (required && !value) setValid(false);
+    else setValid(true);
   }
 
   return (
@@ -37,6 +39,7 @@ export default function FormField({
         `}
         textAlignVertical="top" // Multiline behaviour the same on iOS and Android
         multiline={multiline}
+        autoCapitalize={autoCapitalize}
         onBlur={validate}
         placeholder={placeholder}
         value={value}

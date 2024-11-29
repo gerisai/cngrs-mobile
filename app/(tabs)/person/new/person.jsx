@@ -28,8 +28,7 @@ export default function Assistant() {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente creado'});
         router.replace('/asistants');
       } catch(err) {
-        console.log(err)
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -38,7 +37,7 @@ export default function Assistant() {
   });
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/asistants");
   }
 

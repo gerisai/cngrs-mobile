@@ -2,7 +2,9 @@ import { useState } from "react";
 import { View, Text, Alert } from "react-native";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUser } from '@/lib/context/user';
+import { router } from 'expo-router';
 import { Avatar } from "@react-native-material/core";
+import Toast from 'react-native-toast-message';
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButtom";
 import useUsers from '@/hooks/useUsers';
@@ -33,7 +35,7 @@ export default function EditUser({ readUser }) {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario actualizado'});
         router.replace('/users');
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -49,7 +51,7 @@ export default function EditUser({ readUser }) {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario borrado'});
         router.replace('/users');
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {

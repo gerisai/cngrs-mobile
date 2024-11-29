@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { router, useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -8,6 +8,7 @@ import CustomButton from "@/components/CustomButtom";
 import InfoField from "@/components/InfoField";
 import Loading from '@/components/Loading';
 import usePeople from "@/hooks/usePeople";
+import Back from '@/components/Back';
 
 const types = {
   light: {
@@ -40,7 +41,7 @@ export default function Assistant() {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Registro exitoso'});
         router.replace('/home')
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -53,7 +54,7 @@ export default function Assistant() {
   }
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/home");
   }
 
@@ -61,6 +62,7 @@ export default function Assistant() {
     <View
       className="w-full h-full flex items-center pt-4 bg-gray"
     >
+      <Back styles="self-start px-2 pt-4" handlePress={() => router.push('/home')} size={32} />
       <View className="flex gap-2 bg-white w-11/12 border-1 rounded-xl shadow-sm m-4 p-4">
         <MaterialIcons className="self-center" name="account-circle" color="#00BFDD" size={72}/>
         <Text className="text-2xl text-center font-rmedium px-12">

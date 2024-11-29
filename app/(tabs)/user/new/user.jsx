@@ -1,4 +1,4 @@
-import { View, KeyboardAvoidingView, ScrollView, Platform, Text } from "react-native";
+import { View, KeyboardAvoidingView, ScrollView, Platform, Text, Alert } from "react-native";
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -27,7 +27,7 @@ export default function User() {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario creado'});
         router.replace('/users');
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -36,7 +36,7 @@ export default function User() {
   });
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/users");
   }
 
@@ -58,12 +58,21 @@ export default function User() {
           <FormField
             name="Usuario"
             value={form.username}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
+            autoCapitalize="none"
             required
           />
           <FormField
             name="Nombre"
             value={form.name}
             handleChangeText={(e) => setForm({ ...form, name: e })}
+            required
+          />
+          <FormField
+            name="Correo"
+            type="email"
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, email: e })}
             required
           />
           <Select

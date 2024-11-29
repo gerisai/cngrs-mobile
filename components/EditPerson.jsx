@@ -39,7 +39,7 @@ export default function EditPerson({ person }) {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente actualizado'});
         router.replace('/asistants');
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -54,7 +54,7 @@ export default function EditPerson({ person }) {
         await updatePerson({ person: person.personId, accessed: true });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Registro exitoso'});
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {
@@ -70,7 +70,7 @@ export default function EditPerson({ person }) {
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente borrado'});
         router.replace('/asistants');
       } catch(err) {
-        Toast.show({ type: 'error', topOffset: 100, text1: err.message });
+        Alert.alert(`Error: ${err.message}`);
       }
     },
     onSuccess: () => {

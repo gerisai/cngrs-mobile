@@ -71,6 +71,7 @@ export const emptyPersonForm = {
 export const emptyUserForm = {
   username: null,
   name: null,
+  email: null,
   role: null,
   password: null
 };

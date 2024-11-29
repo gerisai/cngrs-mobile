@@ -1,8 +1,7 @@
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import Toast from 'react-native-toast-message';
 import { useUser } from '@/lib/context/user';
 import Card from '@/components/Card';
 import CustomSearchBar from '@/components/CustomSearchBar';
@@ -43,7 +42,7 @@ export default function Users() {
   }
 
   if (error) {
-    Toast.show({ type: 'error', topOffset: 100, text1: error.message });
+    Alert.alert(`Error: ${error.message}`);
     router.replace("/home");
   }
 
