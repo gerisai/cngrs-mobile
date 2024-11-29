@@ -13,7 +13,7 @@ import canRoleDo from '@/util/roleValidation';
 import { genders } from "@/constants/constants";
 import validateForm from "@/util/formValidation";
 
-export default function EditPerson({ person }) {
+export default function EditPerson({ person, setEnabled }) {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const [form, setForm] = useState({
@@ -51,7 +51,7 @@ export default function EditPerson({ person }) {
   const { mutateAsync: registerAccess, isPending: registering } = useMutation({
     mutationFn: async () => {
       try {
-        await updatePerson({ person: person.personId, accessed: true });
+        await updatePerson({ personId: person.personId, accessed: true });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Registro exitoso'});
       } catch(err) {
         Alert.alert(`Error: ${err.message}`);
@@ -67,6 +67,7 @@ export default function EditPerson({ person }) {
     mutationFn: async () => {
       try {
         await deletePerson(person.personId);
+        setEnabled(false);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente borrado'});
         router.replace('/asistants');
       } catch(err) {

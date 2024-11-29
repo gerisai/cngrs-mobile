@@ -14,7 +14,7 @@ import { LangMappings } from "@/util/i8n";
 import canRoleDo from '@/util/roleValidation';
 import validateForm from "@/util/formValidation";
 
-export default function EditUser({ readUser }) {
+export default function EditUser({ readUser, setEnabled }) {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const [form,setForm] = useState({
@@ -48,6 +48,7 @@ export default function EditUser({ readUser }) {
     mutationFn: async () => {
       try {
         await deleteUser(readUser.username);
+        setEnabled(false);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario borrado'});
         router.replace('/users');
       } catch(err) {
