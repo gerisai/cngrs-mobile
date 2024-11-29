@@ -39,7 +39,7 @@ export default function Scanner() {
         onBarcodeScanned={scanPerson}
       >
         <Pressable onPress={goBack}>
-          <MaterialIcons className="bg-black rounded-full flex self-start ml-4 mt-12" name="arrow-back" color="#00BFDD" size={42}/>
+          <MaterialIcons className="bg-black rounded-full flex self-start ml-4 mt-20" name="arrow-back" color="#00BFDD" size={42}/>
         </Pressable>
       </CameraView>
     </SafeAreaView>

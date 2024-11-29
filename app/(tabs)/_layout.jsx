@@ -23,7 +23,8 @@ export default function TabsLayout() {
         headerShown: true,
         tabBarStyle: {
           backgroundColor: '#0000',
-          boxShadow: "0px -3px 4px 0px rgba(0, 0, 0, 0.15)"
+          boxShadow: "0px -3px 4px 0px rgba(0, 0, 0, 0.15)",
+          marginBottom: 10
         },
         headerBackground: (props) => (
           <LinearGradient
