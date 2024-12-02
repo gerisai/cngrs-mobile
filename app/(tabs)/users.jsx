@@ -47,7 +47,7 @@ export default function Users() {
   }
 
   const onRefresh = () => {
-    queryClient.invalidateQueries(['users', { search }, { filterChanged }]);
+    queryClient.invalidateQueries({ queryKey: ['users', { search }, { filterChanged }] });
   }
 
   return (

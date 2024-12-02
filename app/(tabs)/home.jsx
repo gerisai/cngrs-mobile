@@ -32,7 +32,7 @@ export default function Home() {
   }
 
   const onRefresh = () => {
-    queryClient.invalidateQueries(['accessed', 'total']);
+    queryClient.invalidateQueries({ queryKey: ['person'] });
   }
 
   return (

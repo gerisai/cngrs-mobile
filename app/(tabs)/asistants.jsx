@@ -43,7 +43,7 @@ export default function Asistants() {
   }
 
   const onRefresh = () => {
-    queryClient.invalidateQueries(['people', { search }, { filterChanged }]);
+    queryClient.invalidateQueries({ queryKey: ['people', { search }, { filterChanged }] });
   }
 
   return (
