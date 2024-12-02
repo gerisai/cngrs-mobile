@@ -31,7 +31,8 @@ export default function Filter({ show, setShow, filter, setFilter, applyFn, filt
     setShow(false);
     // Check if filters are not empty
 
-    JSON.stringify(filter) === JSON.stringify(emptyPeopleFilter) ? applyFn(false) : applyFn(true);
+    JSON.stringify(filter) === JSON.stringify(type === 'person' ? emptyPeopleFilter : emptyUsersFilter) 
+    ? applyFn(false) : applyFn(true);
     // Check if filter changed
     if (JSON.stringify(prevFilter) !== JSON.stringify(filter)) {
       setFilterChanged(!filterChanged);
