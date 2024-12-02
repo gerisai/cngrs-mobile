@@ -17,6 +17,8 @@ export default function TabsLayout() {
   
   return (
     <Tabs
+      backBehavior="history"
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: '#00BFDD',
         animation: 'shift',
@@ -58,6 +60,7 @@ export default function TabsLayout() {
     {
       tabs.map((t,i) => (
         <Tabs.Screen key={i} name={t.name} options={{ 
+          freezeOnBlur: true,
           title: t.title,
           tabBarIcon: ({ color }) => (
               <MaterialIcons name={t.icon} color={color} size={24}/>
@@ -66,6 +69,7 @@ export default function TabsLayout() {
             return (
             <Pressable
               {...props}
+              android_ripple={{}}
               style={
                 props.accessibilityState.selected
                   ? [props.style, { borderTopColor: '#00BFDD', borderTopWidth: 5, color: "#fff" }]

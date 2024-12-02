@@ -48,6 +48,7 @@ export default function RootLayout() {
   <UserProvider>
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="scanner/index" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
     <Toast config={toastConfig}/>
