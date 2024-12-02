@@ -3,14 +3,14 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Loading from '@/components/Loading';
 import { useQuery } from '@tanstack/react-query';
 import usePeople from "@/hooks/usePeople";
-import useCustomState from '@/hooks/useCustomState';
+import useReseteableState from '@/hooks/useReseteableState';
 import EditPerson from '@/components/EditPerson';
 import Back from '@/components/Back';
 
 export default function Assistant() {
   const { personId } = useLocalSearchParams();
   const { readPerson } = usePeople();
-  const [enabled,setEnabled] = useCustomState(true); // Avoid refetch only when resource is deleted
+  const [enabled,setEnabled] = useReseteableState(true); // Avoid refetch only when resource is deleted
 
   const { data: person , isPending, error } = useQuery({
     queryFn: () => readPerson(personId),

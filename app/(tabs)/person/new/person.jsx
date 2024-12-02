@@ -10,12 +10,12 @@ import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import Back from '@/components/Back';
 import validateForm from "@/util/formValidation";
-import useCustomState from "@/hooks/useCustomState";
+import useReseteableState from "@/hooks/useReseteableState";
 
 export default function Assistant() {
   const { createPerson } = usePeople();
   const queryClient = useQueryClient();
-  const [form, setForm] = useCustomState(emptyPersonForm);
+  const [form, setForm] = useReseteableState(emptyPersonForm);
 
 
   // Create

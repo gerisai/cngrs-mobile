@@ -1,7 +1,7 @@
 import { View, ScrollView, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { useQuery } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
-import useCustomState from '@/hooks/useCustomState';
+import useReseteableState from '@/hooks/useReseteableState';
 import useUsers from '@/hooks/useUsers';
 import EditUser from '@/components/EditUser';
 import Loading from '@/components/Loading';
@@ -10,7 +10,7 @@ import Back from '@/components/Back';
 export default function User() {
   const { username } = useLocalSearchParams();
   const { readUser } = useUsers();
-  const [enabled,setEnabled] = useCustomState(true); // Avoid refetch only when resource is deleted
+  const [enabled,setEnabled] = useReseteableState(true); // Avoid refetch only when resource is deleted
 
   const { data: user , isPending, error } = useQuery({
     queryFn: () => readUser(username),

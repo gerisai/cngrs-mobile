@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from 'expo-router';
 
-export default function useCustomState (defaultValue) {
+export default function useReseteableState (defaultValue) {
   const navigation = useNavigation();
   const [value, setValue] = useState(defaultValue);
 

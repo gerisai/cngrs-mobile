@@ -1,6 +1,6 @@
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import useCustomState from "@/hooks/useCustomState";
+import useReseteableState from "@/hooks/useReseteableState";
 
 export default function FormField({
   name,
@@ -16,8 +16,8 @@ export default function FormField({
   type = "text"
 }) 
 {
-  const [showPassword, setShowPassword] = useCustomState(false);
-  const [valid, setValid] = useCustomState(true);
+  const [showPassword, setShowPassword] = useReseteableState(false);
+  const [valid, setValid] = useReseteableState(true);
 
   const validate = () => {
     if (required && !value) setValid(false);

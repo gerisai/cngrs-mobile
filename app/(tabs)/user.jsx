@@ -7,6 +7,7 @@ import Toast from 'react-native-toast-message';
 import { router} from 'expo-router';
 import CustomButton from "@/components/CustomButtom";
 import FormField from "@/components/FormField";
+import Back from "@/components/Back";
 import Select from '@/components/Select';
 import { useUser } from '@/lib/context/user';
 import useUsers from '@/hooks/useUsers';
@@ -80,6 +81,7 @@ export default function User() {
       keyboardVerticalOffset={10}
     >
       <ScrollView directionalLockEnabled={true}>
+      <Back styles="px-2 pt-4" handlePress={() => router.back()} size={32} />
       <View className="w-full h-full flex p-8 bg-gray">
         <View className="flex gap-2">
           <Text className="text-4xl font-rbold mb-2">

@@ -1,12 +1,12 @@
 import { TouchableOpacity, Text, Modal, View, FlatList, Pressable } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useState } from "react";
-import useCustomState from "@/hooks/useCustomState";
+import useReseteableState from "@/hooks/useReseteableState";
 
 
 export default function Select({ title, data, disabled, value, onSelect, required = false }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [valid, setValid] = useCustomState(true);
+  const [valid, setValid] = useReseteableState(true);
 
   const chooseOption = (value) => {
     setValid(true);
