@@ -62,7 +62,7 @@ export default function Assistant() {
     <View
       className="w-full h-full flex items-center pt-4 bg-gray"
     >
-      <Back styles="self-start px-2 pt-4" handlePress={() => router.push('/home')} size={32} />
+      <Back styles="self-start px-2 pt-4" handlePress={() => router.replace('/home')} size={32} />
       <View className="flex gap-2 bg-white w-11/12 border-1 rounded-xl shadow-sm m-4 p-4">
         <MaterialIcons className="self-center" name="account-circle" color="#00BFDD" size={72}/>
         <Text className="text-2xl text-center font-rmedium px-12">
