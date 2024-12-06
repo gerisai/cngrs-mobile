@@ -12,15 +12,16 @@ import { roles } from '@/constants/constants';
 import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import canRoleDo from '@/util/roleValidation';
+import { merge } from '@/util/utilities';
 import validateForm from "@/util/formValidation";
 
 export default function EditUser({ readUser, setEnabled }) {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const [form,setForm] = useState({
-    username: readUser.username,
-    name: readUser.name,
-    role: readUser.role,
+    username: null,
+    name: null,
+    role: null,
     password: null
   });
   const { updateUser, deleteUser } = useUsers();
@@ -29,9 +30,10 @@ export default function EditUser({ readUser, setEnabled }) {
   // Update
   const { mutateAsync: submit, isPending: updating } = useMutation({
     mutationFn: async () => {
-      if(!validateForm(form, Alert.alert)) return
+      const merged = merge(readUser, form);
+      if(!validateForm(merged, Alert.alert)) return
       try {
-        await updateUser(form);
+        await updateUser(merged);
         Toast.show({ type: 'success', topOffset: 100, text1: 'Usuario actualizado'});
         router.replace('/users');
       } catch(err) {
@@ -80,19 +82,19 @@ export default function EditUser({ readUser, setEnabled }) {
       </View>
       <FormField
         name="Usuario"
-        value={form.username}
+        value={form.username || readUser.username}
         disabled={true}
       />
       <FormField
         name="Nombre"
-        value={form.name}
+        value={form.name || readUser.name}
         handleChangeText={(e) => setForm({ ...form, name: e })}
         disabled={!canEdit}
         required
       />
       <Select
         title="Rol"
-        value={LangMappings.user.roles[form.role]}
+        value={LangMappings.user.roles[form.role || readUser.role]}
         data={roles}
         onSelect={(e) => setForm({ ...form, role: e })}
         disabled={!canEdit}

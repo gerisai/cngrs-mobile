@@ -60,12 +60,14 @@ export const emptyPersonForm = {
   name: null,
   gender: null,
   cellphone: null,
+  accessed: true,
   email: null,
   tutor: null,
   illness: null,
   zone: null,
   branch: null,
-  city: null
+  city: null,
+  room: null
 };
 
 export const emptyUserForm = {

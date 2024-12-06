@@ -10,6 +10,7 @@ import Select from '@/components/Select';
 import { LangMappings } from "@/util/i8n";
 import usePeople from "@/hooks/usePeople";
 import canRoleDo from '@/util/roleValidation';
+import { merge } from '@/util/utilities';
 import { genders } from "@/constants/constants";
 import validateForm from "@/util/formValidation";
 
@@ -17,15 +18,16 @@ export default function EditPerson({ person, setEnabled }) {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const [form, setForm] = useState({
-    name: person.name,
-    gender: person.gender,
-    cellphone: String(person.cellphone),
-    email: person.email,
-    tutor: person.tutor,
-    illness: person.illness,
-    zone: person.zone,
-    branch: person.branch,
-    city: person.city
+    name: null,
+    gender: null,
+    cellphone: null,
+    email: null,
+    tutor: null,
+    illness: null,
+    zone: null,
+    branch: null,
+    city: null,
+    room: null
   });
   const { updatePerson, deletePerson } = usePeople();
   const canEdit = canRoleDo(user.role, 'UPDATE', 'person');
@@ -33,9 +35,10 @@ export default function EditPerson({ person, setEnabled }) {
   // Update
   const { mutateAsync: submit, isPending: updating } = useMutation({
     mutationFn: async () => {
-      if(!validateForm(form, Alert.alert)) return
+      const merged = merge(person, form);
+      if(!validateForm(merged, Alert.alert)) return
       try {
-        await updatePerson({ personId: person.personId, ...form });
+        await updatePerson({ personId: person.personId, ...merged });
         Toast.show({ type: 'success', topOffset: 100, text1: 'Asistente actualizado'});
         router.replace('/asistants');
       } catch(err) {
@@ -103,7 +106,7 @@ export default function EditPerson({ person, setEnabled }) {
       </View>
       <FormField
         name="Nombre"
-        value={form.name}
+        value={form.name || person.name}
         handleChangeText={(e) => setForm({ ...form, name: e })}
         disabled={!canEdit}
         required
@@ -118,46 +121,52 @@ export default function EditPerson({ person, setEnabled }) {
       />
       <FormField
         name="Teléfono"
-        value={form.cellphone}
+        value={form.cellphone || String(person.cellphone)}
         handleChangeText={(e) => setForm({ ...form, cellphone: e })}
         disabled={!canEdit}
         required
       />
       <FormField
         name="Correo"
-        value={form.email}
+        value={form.email || person.email}
         handleChangeText={(e) => setForm({ ...form, email: e })}
         disabled={!canEdit}
         required
       />
       <FormField
         name="Tutor"
-        value={form.tutor}
+        value={form.tutor || person.tutor}
         handleChangeText={(e) => setForm({ ...form, tutor: e })}
         disabled={!canEdit}
       />
       <FormField
         name="Observaciones médicas"
-        value={form.illness}
+        value={form.illness || person.illness}
         handleChangeText={(e) => setForm({ ...form, illness: e })}
         disabled={!canEdit}
       />
       <FormField
         name="Zona / Estado"
-        value={form.zone}
+        value={form.zone || person.zone}
         handleChangeText={(e) => setForm({ ...form, zone: e })}
         disabled={!canEdit}
       />
       <FormField
         name="Localidad"
-        value={form.branch}
+        value={form.branch || person.branch}
         handleChangeText={(e) => setForm({ ...form, branch: e })}
         disabled={!canEdit}
       />
       <FormField
         name="Ciudad"
-        value={form.city}
+        value={form.city || person.city}
         handleChangeText={(e) => setForm({ ...form, city: e })}
+        disabled={!canEdit}
+      />
+      <FormField
+        name="Caurto"
+        value={form.room || person.room}
+        handleChangeText={(e) => setForm({ ...form, room: e })}
         disabled={!canEdit}
       />
       <View className="flex gap-0">

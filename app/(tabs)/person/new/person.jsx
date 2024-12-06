@@ -109,6 +109,11 @@ export default function Assistant() {
             value={form.city}
             handleChangeText={(e) => setForm({ ...form, city: e })}
           />
+          <FormField
+            name="Cuarto"
+            value={form.room}
+            handleChangeText={(e) => setForm({ ...form, city: e })}
+          />
           <View className="flex gap-0">
             <CustomButton
               title={'Cancelar'}

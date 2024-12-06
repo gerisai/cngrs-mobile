@@ -77,6 +77,7 @@ const validationFns = {
   required: ({ value }) => {
     if (!value) return false
     if (typeof value === "string") return value.length !== 0
+    return true
   }
 }
 

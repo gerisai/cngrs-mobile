@@ -20,9 +20,6 @@ export default function Category ({ name, filter, setFilter, isStatic, isRadio }
     staleTime: 5 * 60 * 1000 // Wait at least 5 min before refetching
   });
 
-  if (isPending) return <Loading/>;
-  if (error) return <View><Text>Error cargando opciones: {error.message}</Text></View>;
-
   const setOption = (option) => {
     setFilter({ 
       ...filter,
@@ -34,7 +31,7 @@ export default function Category ({ name, filter, setFilter, isStatic, isRadio }
     setFilter({ ...filter, [name]: [] });
     if (isRadio) setChecked(null);
   }
-  
+
   return (
     <ScrollView className="bg-white w-1/2">
       <Checkbox
@@ -44,6 +41,13 @@ export default function Category ({ name, filter, setFilter, isStatic, isRadio }
         containerStyles="m-4"
       />
     <Divider />
+    { isPending ?
+      <Loading/>
+    : error ? 
+      <Text className="m-4 text-red-500 text-center">
+        Error cargando opciones: ${error.message}
+      </Text>
+    :
     <View className="pr-4">
     { !isRadio ? category.map((c,i) => (
       <Checkbox
@@ -67,6 +71,7 @@ export default function Category ({ name, filter, setFilter, isStatic, isRadio }
       />
     }
     </View>
+    }
   </ScrollView>
   )
 }
