@@ -28,7 +28,7 @@ export default function SignIn() {
         await login(form);
         router.replace("/home");
       } catch(err) {
-        Alert.alert("Error: ", err.message);
+        Alert.alert("Error: ", `${err.message} (${process.env.EXPO_PUBLIC_API_URL})`);
       }
     }
   });

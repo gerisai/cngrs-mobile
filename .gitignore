@@ -40,3 +40,10 @@ app-example
 # Native code
 android/
 ios/
+
+# Bundles
+*.aab
+*.ipa
+
+# Secrets
+credentials.json
