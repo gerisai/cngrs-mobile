@@ -3,7 +3,9 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "NODE_ENV=development expo start --clear",
+    "dev": "NODE_ENV=development expo start --clear",
+    "android:production": "NODE_ENV=production eas build --platform android --local",
+    "ios:production": "NODE_ENV=production eas build --platform ios --local",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
