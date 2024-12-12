@@ -164,7 +164,7 @@ export default function EditPerson({ person, setEnabled }) {
         disabled={!canEdit}
       />
       <FormField
-        name="Caurto"
+        name="Cuarto"
         value={form.room || person.room}
         handleChangeText={(e) => setForm({ ...form, room: e })}
         disabled={!canEdit}
